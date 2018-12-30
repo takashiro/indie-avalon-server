@@ -1,11 +1,4 @@
 
-const fs = require('fs');
-const util = require('util');
-const readline = require('readline');
-const {spawn} = require('child_process');
-
-const writeFile = util.promisify(fs.writeFile);
-
 const HttpClient = require('./test/HttpClient');
 
 const config = {
@@ -14,24 +7,10 @@ const config = {
 };
 
 (async function () {
-	// Write config file
-	const configFile = 'test/tmp/config.json';
-	await writeFile(configFile, JSON.stringify(config));
-
 	// Start application
-	const app = spawn('node', ['app', '--config=' + configFile]);
-	await new Promise(function (resolve, reject) {
-		const appout = readline.createInterface({input: app.stdout});
-		appout.once('line', function (message) {
-			if (message === 'started') {
-				resolve();
-			} else {
-				reject();
-			}
-		});
-		const apperr = readline.createInterface({input: app.stderr});
-		apperr.once('line', reject);
-	});
+	const App = require('./test/App');
+	let app = new App(config);
+	await app.start();
 
 	// Run tests
 	const client = new HttpClient(config.socket.port);
@@ -42,7 +21,9 @@ const config = {
 		console.log(`Testing ${test.name}...`);
 		try {
 			await test.run(client);
+			console.log('Passed');
 		} catch (error) {
+			console.log('Failed');
 			console.error(error);
 			failures++;
 		}
@@ -51,7 +32,7 @@ const config = {
 	console.log(`Result: ${tests.length - failures} / ${tests.length}`);
 
 	// Close application
-	app.kill();
+	app.stop();
 
 	return process.exit(failures ? 1 : 0);
 })();
