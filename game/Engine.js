@@ -1,6 +1,13 @@
 
 const shuffle = require('../util/shuffle');
 
+// Load skills
+const SkillMap = new Map;
+for (let Skill of require('./skills')) {
+	let skill = new Skill;
+	SkillMap.set(skill.role, skill);
+}
+
 /**
  * Game Engine
  */
@@ -76,6 +83,16 @@ class Engine {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Invoke corresponding role skills
+	 * @param {Role} role
+	 * @return {object|undefined}
+	 */
+	invokeSkill(role) {
+		let skill = SkillMap.get(role);
+		return skill && skill.effect(this);
 	}
 
 }

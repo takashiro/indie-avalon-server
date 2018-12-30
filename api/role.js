@@ -29,7 +29,14 @@ function GET(params) {
 	}
 
 	let role = engine.takeSeat(seat, seatKey);
-	let info = { role: role && role.toNum() };
+	let info = {role: null};
+	if (role) {
+		info.role = role.toNum();
+		let extraInfo = engine.invokeSkill(role);
+		if (extraInfo) {
+			Object.assign(info, extraInfo);
+		}
+	}
 	return info;
 }
 
