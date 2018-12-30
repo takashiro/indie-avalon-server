@@ -4,8 +4,6 @@ const util = require('util');
 const readline = require('readline');
 const {spawn} = require('child_process');
 
-const rename = util.promisify(fs.rename);
-const unlink = util.promisify(fs.unlink);
 const writeFile = util.promisify(fs.writeFile);
 
 const HttpClient = require('./test/HttpClient');
