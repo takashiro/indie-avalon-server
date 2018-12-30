@@ -1,7 +1,9 @@
 
 const http = require('http');
 const path = require('path');
+const querystring = require('querystring');
 
+const HttpError = require('../core/HttpError');
 const Lobby = require('./Lobby');
 
 const DefaultConfig = {
@@ -56,7 +58,7 @@ async function requestListener(request, response) {
 		handler = require(path.join('..', 'api', api));
 	} catch (error) {
 		response.writeHead(404);
-		return response.end();
+		return response.end('No such an API');
 	}
 
 	// Call API
