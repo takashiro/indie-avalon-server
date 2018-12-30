@@ -28,30 +28,18 @@ function request(method, api, params, data) {
 	});
 }
 
-function read(res) {
-	return new Promise(function (resolve, reject) {
-		let body = [];
-		res.on('data', chunk => body.push(chunk));
-		res.on('error', reject);
-		res.on('end', function () {
-			let json = Buffer.concat(body).toString();
-			try {
-				resolve(JSON.parse(json));
-			} catch (error) {
-				reject(error);
-			}
-		});
-	});
-}
-
 class HttpClient {
 
 	constructor(port) {
 		this.port = port;
 	}
 
-	post(api, params, data) {
-		return this.request('POST', api, params, data);
+	post(api) {
+		if (arguments.length == 2) {
+			return this.request('POST', api, null, arguments[1]);
+		} else {
+			return this.request('POST', api, arguments[1], arguments[2]);
+		}
 	}
 
 	get(api, params) {
@@ -62,9 +50,8 @@ class HttpClient {
 		return this.request('DELETE', api, params);
 	}
 
-	async request(method, api, params, data) {
-		let res = await request.call(this, method, api, params, data);
-		return read(res);
+	request(method, api, params, data) {
+		return request.call(this, method, api, params, data);
 	}
 }
 
