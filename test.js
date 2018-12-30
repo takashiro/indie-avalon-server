@@ -10,8 +10,10 @@ const config = {
 };
 
 (async function () {
+	let localDebug = process.argv.some(arg => arg === '--local-debug');
+
 	// Start application
-	const App = require('./test/App');
+	const App = require(localDebug ? './core/App' : './test/App');
 	let app = new App(config);
 	await app.start();
 

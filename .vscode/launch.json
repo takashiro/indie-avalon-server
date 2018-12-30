@@ -14,7 +14,8 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch Test",
-			"program": "${workspaceFolder}\\test.js"
+			"program": "${workspaceFolder}\\test.js",
+			"args": ["--local-debug"]
 		}
 	]
 }
