@@ -29,13 +29,14 @@ class Engine {
 	 */
 	setRoles(roles) {
 		this.roles = roles;
+		this.playerNum = roles.length;
 	}
 
 	/**
 	 * Arrange roles
 	 */
 	arrangeRoles() {
-		let roles = new Array(this.roles);
+		let roles = [...this.roles];
 		shuffle(roles);
 
 		for (let seat = 1; seat <= this.playerNum; seat++) {
@@ -44,6 +45,37 @@ class Engine {
 				seatKey: null,
 			});
 		}
+	}
+
+	/**
+	 * Check if the seat exists
+	 * @param {*} seat
+	 * @return {boolean}
+	 */
+	hasSeat(seat) {
+		return this.seats.has(seat);
+	}
+
+	/**
+	 * Take one seat
+	 * @param {number} seat seat number
+	 * @param {number} seatKey seat key
+	 * @return {Role} if the seat hasn't been take, return the role.
+	 */
+	takeSeat(seat, seatKey) {
+		let info = this.seats.get(seat);
+		if (!info) {
+			return null;
+		}
+
+		if (info.seatKey === null) {
+			info.seatKey = seatKey;
+			return info.role;
+		} else if (info.seatKey === seatKey) {
+			return info.role;
+		}
+
+		return null;
 	}
 
 }
