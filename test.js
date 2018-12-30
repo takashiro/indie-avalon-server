@@ -2,7 +2,10 @@
 const HttpClient = require('./test/HttpClient');
 
 const config = {
-	socket: {port: 10000 + Math.floor(Math.random() * 55536)},
+	socket: {
+		host: 'localhost',
+		port: 10000 + Math.floor(Math.random() * 55536),
+	},
 	maxRoomLimit: 10
 };
 
