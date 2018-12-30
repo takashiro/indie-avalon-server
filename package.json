@@ -1,0 +1,26 @@
+{
+  "name": "indie-avalon-server",
+  "version": "0.1.0",
+  "description": "Node.js Server of the Resistence: Avalon (Board Game)",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takashiro/indie-avalon-server.git"
+  },
+  "keywords": [
+    "Avalon",
+    "Board",
+    "Game",
+    "Resistence"
+  ],
+  "author": "Kazuichi Takashiro",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/takashiro/indie-avalon-server/issues"
+  },
+  "homepage": "https://github.com/takashiro/indie-avalon-server#readme",
+  "dependencies": {}
+}
