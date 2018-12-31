@@ -28,16 +28,7 @@ function GET(params) {
 		throw new HttpError(400, 'Invalid seatKey');
 	}
 
-	let role = engine.takeSeat(seat, seatKey);
-	let info = {role: null};
-	if (role) {
-		info.role = role.toNum();
-		let extraInfo = engine.invokeSkill(role);
-		if (extraInfo) {
-			Object.assign(info, extraInfo);
-		}
-	}
-	return info;
+	return engine.takeSeat(seat, seatKey);
 }
 
 module.exports = {GET};

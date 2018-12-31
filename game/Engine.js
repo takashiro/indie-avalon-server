@@ -1,12 +1,8 @@
 
 const shuffle = require('../util/shuffle');
 
-// Load skills
-const SkillMap = new Map;
-for (let Skill of require('./skills')) {
-	let skill = new Skill;
-	SkillMap.set(skill.role, skill);
-}
+const Timing = require('./Timing');
+const SkillList = require('./skills');
 
 /**
  * Game Engine
@@ -75,24 +71,38 @@ class Engine {
 			return null;
 		}
 
+		let result = {role: undefined};
 		if (info.seatKey === null) {
 			info.seatKey = seatKey;
-			return info.role;
+			result.role = info.role;
 		} else if (info.seatKey === seatKey) {
-			return info.role;
+			result.role = info.role;
 		}
 
-		return null;
+		if (result.role) {
+			this.trigger(Timing.GameStart, result.role, result);
+			result.role = result.role.toNum();
+		}
+
+		return result;
 	}
 
 	/**
 	 * Invoke corresponding role skills
+	 * @param {Timing} timing
 	 * @param {Role} role
-	 * @return {object|undefined}
+	 * @param {*} extra
 	 */
-	invokeSkill(role) {
-		let skill = SkillMap.get(role);
-		return skill && skill.effect(this);
+	trigger(timing, role, extra) {
+		for (let skill of SkillList) {
+			if (skill.timing !== timing || skill.role !== role) {
+				continue;
+			}
+
+			if (skill.effect(this, extra)) {
+				break;
+			}
+		}
 	}
 
 }
