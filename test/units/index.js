@@ -4,4 +4,5 @@ module.exports = [
 	require('./room'),
 	require('./role'),
 	require('./merlin'),
+	require('./percival'),
 ];
