@@ -86,6 +86,15 @@ class Engine {
 	}
 
 	/**
+	 * Get a player by seat number
+	 * @param {number} seat
+	 * @return {Player}
+	 */
+	getPlayer(seat) {
+		return this.seats.get(seat);
+	}
+
+	/**
 	 * Invoke corresponding role skills
 	 * @param {Timing} timing
 	 * @param {Player} player
