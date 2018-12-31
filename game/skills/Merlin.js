@@ -10,7 +10,7 @@ class Merlin extends Skill {
 		super(Timing.GameStart, Role.Merlin);
 	}
 
-	effect(engine, info) {
+	effect(engine, merlin, info) {
 		let rebels = [];
 		for (let [seat, pos] of engine.seats) {
 			if (pos.role.team === Team.Rebel) {

@@ -3,6 +3,7 @@ const shuffle = require('../util/shuffle');
 
 const Timing = require('./Timing');
 const SkillList = require('./skills');
+const Player = require('./Player');
 
 /**
  * Game Engine
@@ -43,10 +44,7 @@ class Engine {
 		shuffle(roles);
 
 		for (let seat = 1; seat <= this.playerNum; seat++) {
-			this.seats.set(seat, {
-				role: roles[seat - 1],
-				seatKey: null,
-			});
+			this.seats.set(seat, new Player(roles[seat - 1]));
 		}
 	}
 
@@ -66,21 +64,21 @@ class Engine {
 	 * @return {Role} if the seat hasn't been take, return the role.
 	 */
 	takeSeat(seat, seatKey) {
-		let info = this.seats.get(seat);
-		if (!info) {
+		let player = this.seats.get(seat);
+		if (!player) {
 			return null;
 		}
 
 		let result = {role: undefined};
-		if (info.seatKey === null) {
-			info.seatKey = seatKey;
-			result.role = info.role;
-		} else if (info.seatKey === seatKey) {
-			result.role = info.role;
+		if (player.getSeatKey() === null) {
+			player.setSeatKey(seatKey);
+			result.role = player.role;
+		} else if (player.getSeatKey() === seatKey) {
+			result.role = player.role;
 		}
 
 		if (result.role) {
-			this.trigger(Timing.GameStart, result.role, result);
+			this.trigger(Timing.GameStart, player, result);
 			result.role = result.role.toNum();
 		}
 
@@ -90,16 +88,16 @@ class Engine {
 	/**
 	 * Invoke corresponding role skills
 	 * @param {Timing} timing
-	 * @param {Role} role
+	 * @param {Player} player
 	 * @param {*} extra
 	 */
-	trigger(timing, role, extra) {
+	trigger(timing, player, extra) {
 		for (let skill of SkillList) {
-			if (skill.timing !== timing || skill.role !== role) {
+			if (skill.timing !== timing || !skill.onEffect(this, player)) {
 				continue;
 			}
 
-			if (skill.effect(this, extra)) {
+			if (skill.effect(this, player, extra)) {
 				break;
 			}
 		}
