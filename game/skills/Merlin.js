@@ -11,15 +11,15 @@ class Merlin extends Skill {
 	}
 
 	effect(engine, merlin, info) {
-		let rebels = [];
+		let minions = [];
 		for (let [seat, player] of engine.seats) {
-			if (player.getTeam() === Team.Rebel) {
-				rebels.push(seat);
+			if (player.getTeam() === Team.Minion) {
+				minions.push(seat);
 			}
 		}
 
-		engine.trigger(Timing.Vision, merlin, rebels);
-		info.rebels = rebels;
+		engine.trigger(Timing.Vision, merlin, minions);
+		info.minions = minions;
 	}
 
 }

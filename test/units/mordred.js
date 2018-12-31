@@ -13,16 +13,16 @@ module.exports = {
 		// Create a new room
 		console.log('Create a room');
 		let roles = [
-			Role.Loyal,
-			Role.Loyal,
-			Role.Loyal,
+			Role.Servant,
+			Role.Servant,
+			Role.Servant,
 			Role.Merlin,
 			Role.Merlin,
 			Role.Percival,
 
 			Role.Morgana,
 			Role.Assassin,
-			Role.Rebel,
+			Role.Minion,
 			Role.Oberon,
 			Role.Mordred,
 			Role.Mordred,
@@ -31,16 +31,16 @@ module.exports = {
 		assert.strictEqual(res.statusCode, 200);
 
 		let room = await read(res);
-		let rebelNum = 0;
+		let minionNum = 0;
 		for (let role of roles) {
-			if (role.team === Team.Rebel && role !== Role.Oberon) {
-				rebelNum++;
+			if (role.team === Team.Minion && role !== Role.Oberon) {
+				minionNum++;
 			}
 		}
 
 		// Test Mordred skill
 		let merlinVisions = [];
-		let rebelVisions = [];
+		let minionVisions = [];
 		let mordreds = [];
 		for (let i = 0; i < roles.length; i++) {
 			let seat = i + 1;
@@ -50,33 +50,33 @@ module.exports = {
 			let result = await read(res);
 			let role = Role.fromNum(result.role);
 			if (role === Role.Oberon) {
-				assert(!result.mates || result.mates.length <= 0, 'Oberon cannot see other rebels');
-			} else if (role.team === Team.Rebel) {
-				rebelVisions.push([seat, ...result.mates]);
+				assert(!result.mates || result.mates.length <= 0, 'Oberon cannot see other minions');
+			} else if (role.team === Team.Minion) {
+				minionVisions.push([seat, ...result.mates]);
 				if (role === Role.Mordred) {
 					mordreds.push(seat);
 				}
 			} else if (role === Role.Merlin) {
-				merlinVisions.push(result.rebels);
+				merlinVisions.push(result.minions);
 			}
 		}
 
-		// Confirm all rebel visions are the same
-		assert(rebelVisions[0].length > 0, 'Rebels should know each other');
-		assert(rebelVisions[0].length === rebelNum, 'The number of rebels is incorrect');
-		rebelVisions[0].sort();
-		for (let i = 0; i < rebelVisions.length; i++) {
-			assert(rebelVisions[i].length === rebelNum, 'The number of rebels is incorrect');
-			rebelVisions[i].sort();
-			for (let j = 0; j < rebelNum; j++) {
-				assert(rebelVisions[0][j], rebelVisions[i][j]);
+		// Confirm all minion visions are the same
+		assert(minionVisions[0].length > 0, 'Minions should know each other');
+		assert(minionVisions[0].length === minionNum, 'The number of minions is incorrect');
+		minionVisions[0].sort();
+		for (let i = 0; i < minionVisions.length; i++) {
+			assert(minionVisions[i].length === minionNum, 'The number of minions is incorrect');
+			minionVisions[i].sort();
+			for (let j = 0; j < minionNum; j++) {
+				assert(minionVisions[0][j], minionVisions[i][j]);
 			}
 		}
 
 		// Confirm Merlin cannot see Mordred
 		for (let mordred of mordreds) {
-			for (let rebels of merlinVisions) {
-				assert(rebels.indexOf(mordred) < 0, 'Merlin should not see Mordred');
+			for (let minions of merlinVisions) {
+				assert(minions.indexOf(mordred) < 0, 'Merlin should not see Mordred');
 			}
 		}
 

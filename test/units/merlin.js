@@ -12,22 +12,22 @@ module.exports = {
 
 		console.log('Create a room');
 		let roles = [
-			Role.Loyal,
-			Role.Loyal,
-			Role.Loyal,
+			Role.Servant,
+			Role.Servant,
+			Role.Servant,
 			Role.Merlin,
 			Role.Percival,
 
 			Role.Morgana,
 			Role.Assassin,
-			Role.Rebel,
+			Role.Minion,
 		];
 		res = await client.post('room', {roles: roles.map(role => role.toNum())});
 		assert.strictEqual(res.statusCode, 200);
 
 		let room = await read(res);
 
-		let rebels = [];
+		let minions = [];
 		let forecasted = [];
 		for (let i = 0; i < roles.length; i++) {
 			let seat = i + 1;
@@ -36,20 +36,20 @@ module.exports = {
 
 			let result = await read(res);
 			let role = Role.fromNum(result.role);
-			if (role.team === Team.Rebel) {
-				rebels.push(seat);
+			if (role.team === Team.Minion) {
+				minions.push(seat);
 			} else if (role === Role.Merlin) {
-				forecasted = result.rebels;
+				forecasted = result.minions;
 			}
 		}
-		assert(rebels.length > 0, 'There is no rebel');
+		assert(minions.length > 0, 'There is no minion');
 		assert(forecasted, 'Merlin skill is not invoked');
-		assert.strictEqual(rebels.length, forecasted.length);
+		assert.strictEqual(minions.length, forecasted.length);
 
-		rebels.sort();
+		minions.sort();
 		forecasted.sort();
-		for (let i = 0; i < rebels.length; i++) {
-			assert.strictEqual(rebels[i], forecasted[i]);
+		for (let i = 0; i < minions.length; i++) {
+			assert.strictEqual(minions[i], forecasted[i]);
 		}
 
 		console.log('Delete the room');

@@ -6,29 +6,29 @@ const Role = require('../../game/Role');
 const Team = require('../../game/Team');
 
 module.exports = {
-	name: 'rebel vision',
+	name: 'minion vision',
 	run: async function testStatus(client) {
 		let res;
 
 		// Create a new room
 		console.log('Create a room');
 		let roles = [
-			Role.Loyal,
-			Role.Loyal,
-			Role.Loyal,
+			Role.Servant,
+			Role.Servant,
+			Role.Servant,
 			Role.Merlin,
 			Role.Percival,
 
 			Role.Morgana,
 			Role.Assassin,
-			Role.Rebel,
+			Role.Minion,
 		];
 		res = await client.post('room', {roles: roles.map(role => role.toNum())});
 		assert.strictEqual(res.statusCode, 200);
 
 		let room = await read(res);
 
-		// Test rebel vision
+		// Test minion vision
 		let visions = [];
 		for (let i = 0; i < roles.length; i++) {
 			let seat = i + 1;
@@ -37,12 +37,12 @@ module.exports = {
 
 			let result = await read(res);
 			let role = Role.fromNum(result.role);
-			if (role.team === Team.Rebel) {
+			if (role.team === Team.Minion) {
 				visions.push([seat, ...result.mates]);
 			}
 		}
-		assert(visions.length > 0, 'There is no rebel vision');
-		assert(visions[0], 'Rebel vision skill is not invoked');
+		assert(visions.length > 0, 'There is no minion vision');
+		assert(visions[0], 'Minion vision skill is not invoked');
 
 		visions[0].sort();
 		for (let i = 0; i < visions.length; i++) {

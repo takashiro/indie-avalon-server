@@ -42,20 +42,20 @@ class Role {
 Role.enums = [
 	new Role('Unknown', Team.Unknown),
 
-	new Role('Loyal', Team.Loyal),
-	new Role('Rebel', Team.Rebel),
+	new Role('Servant', Team.Servant),
+	new Role('Minion', Team.Minion),
 
-	new Role('Merlin', Team.Loyal),
-	new Role('Assassin', Team.Rebel),
+	new Role('Merlin', Team.Servant),
+	new Role('Assassin', Team.Minion),
 
-	new Role('Percival', Team.Loyal),
-	new Role('Morgana', Team.Rebel),
+	new Role('Percival', Team.Servant),
+	new Role('Morgana', Team.Minion),
 
-	new Role('Oberon', Team.Rebel),
-	new Role('Mordred', Team.Rebel),
+	new Role('Oberon', Team.Minion),
+	new Role('Mordred', Team.Minion),
 
-	new Role('BlueLancelot', Team.Loyal),
-	new Role('RedLancelot', Team.Rebel),
+	new Role('BlueLancelot', Team.Servant),
+	new Role('RedLancelot', Team.Minion),
 ];
 
 module.exports = Role;

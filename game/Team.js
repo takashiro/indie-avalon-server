@@ -38,8 +38,8 @@ class Team {
 Team.enums = [
 	new Team('Unknown'),
 
-	new Team('Loyal'),
-	new Team('Rebel'),
+	new Team('Servant'),
+	new Team('Minion'),
 ];
 
 module.exports = Team;

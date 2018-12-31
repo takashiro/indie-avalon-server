@@ -13,11 +13,11 @@ class Mordred extends Skill {
 		return target && target.getRole() === Role.Merlin;
 	}
 
-	effect(engine, merlin, rebels) {
-		for (let i = 0; i < rebels.length; i++) {
-			let player = engine.getPlayer(rebels[i]);
+	effect(engine, merlin, minions) {
+		for (let i = 0; i < minions.length; i++) {
+			let player = engine.getPlayer(minions[i]);
 			if (player.getRole() === this.role) {
-				rebels.splice(i, 1);
+				minions.splice(i, 1);
 				i--;
 			}
 		}

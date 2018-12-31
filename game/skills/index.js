@@ -3,7 +3,7 @@ const Skills = [
 	require('./Merlin'),
 	require('./Percival'),
 	require('./Morgana'),
-	require('./Rebel'),
+	require('./Minion'),
 	require('./Oberon'),
 	require('./Mordred'),
 ];

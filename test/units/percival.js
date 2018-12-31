@@ -11,15 +11,15 @@ module.exports = {
 
 		console.log('Create a room');
 		let roles = [
-			Role.Loyal,
-			Role.Loyal,
-			Role.Loyal,
+			Role.Servant,
+			Role.Servant,
+			Role.Servant,
 			Role.Merlin,
 			Role.Percival,
 
 			Role.Morgana,
 			Role.Assassin,
-			Role.Rebel,
+			Role.Minion,
 		];
 		res = await client.post('room', {roles: roles.map(role => role.toNum())});
 		assert.strictEqual(res.statusCode, 200);

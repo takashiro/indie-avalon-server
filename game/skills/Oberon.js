@@ -10,12 +10,12 @@ class Oberon extends Skill {
 		super(Timing.Vision, Role.Oberon);
 	}
 
-	onEffect(engine, rebel) {
-		return rebel && rebel.getTeam() === Team.Rebel;
+	onEffect(engine, minion) {
+		return minion && minion.getTeam() === Team.Minion;
 	}
 
-	effect(engine, rebel, mates) {
-		if (rebel.getRole() === this.role) {
+	effect(engine, minion, mates) {
+		if (minion.getRole() === this.role) {
 			mates.splice(0, mates.length);
 		} else {
 			for (let i = 0; i < mates.length; i++) {
