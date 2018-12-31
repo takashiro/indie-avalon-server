@@ -38,7 +38,7 @@ function POST(params, input) {
 		id: room.id,
 		ownerKey: room.ownerKey,
 		roles: engine.roles.map(role => role.toNum()),
-		missionCaptain: engine.missionCaptain,
+		questLeader: engine.questLeader,
 	};
 }
 
