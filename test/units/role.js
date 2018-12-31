@@ -19,7 +19,7 @@ module.exports = {
 		assert.strictEqual(res.statusCode, 404);
 
 		console.log('Test invalid seatKey');
-		let seat = Math.floor(Math.random() * roles.length);
+		let seat = 1 + Math.floor(Math.random() * roles.length);
 		res = await client.get('role', {id: room.id, seat});
 		assert.strictEqual(res.statusCode, 400);
 
