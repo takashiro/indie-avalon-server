@@ -5,4 +5,5 @@ module.exports = [
 	require('./role'),
 	require('./merlin'),
 	require('./percival'),
+	require('./rebel'),
 ];
