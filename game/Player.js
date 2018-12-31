@@ -32,6 +32,14 @@ class Player {
 	}
 
 	/**
+	 * Get team
+	 * @return {Team}
+	 */
+	getTeam() {
+		return this.role.team;
+	}
+
+	/**
 	 * Get seat number
 	 * @return {number}
 	 */

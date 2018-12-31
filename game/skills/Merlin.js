@@ -12,8 +12,8 @@ class Merlin extends Skill {
 
 	effect(engine, merlin, info) {
 		let rebels = [];
-		for (let [seat, pos] of engine.seats) {
-			if (pos.role.team === Team.Rebel) {
+		for (let [seat, player] of engine.seats) {
+			if (player.getTeam() === Team.Rebel) {
 				rebels.push(seat);
 			}
 		}
