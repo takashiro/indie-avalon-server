@@ -27,6 +27,9 @@ module.exports = {
 			assert(roles.indexOf(role) >= 0, 'Check roles');
 		}
 
+		console.log('Check mission captain');
+		assert(room.missionCaptain > 0 && room.missionCaptain <= roles.length, 'Check mission captain');
+
 		console.log('Delete a room');
 		res = await client.delete('room', {id: room.id});
 		assert.strictEqual(res.statusCode, 200);

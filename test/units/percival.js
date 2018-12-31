@@ -3,7 +3,6 @@ const assert = require('assert');
 const read = require('../readStream');
 
 const Role = require('../../game/Role');
-const Team = require('../../game/Team');
 
 module.exports = {
 	name: 'Percival vision',

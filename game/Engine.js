@@ -17,6 +17,7 @@ class Engine {
 		this.roles = [];
 		this.seats = new Map;
 		this.playerNum = 0;
+		this.missionCaptain = 0;
 	}
 
 	/**
@@ -33,7 +34,16 @@ class Engine {
 	 */
 	setRoles(roles) {
 		this.roles = roles;
-		this.playerNum = roles.length;
+	}
+
+	/**
+	 * Start game
+	 */
+	start() {
+		this.playerNum = this.roles.length;
+		this.missionCaptain = 1 + Math.floor(Math.random() * this.playerNum);
+
+		this.arrangeRoles();
 	}
 
 	/**

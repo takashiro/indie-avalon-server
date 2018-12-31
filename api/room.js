@@ -32,12 +32,13 @@ function POST(params, input) {
 	let engine = new GameEngine;
 	room.setEngine(engine);
 	engine.setRoles(roles);
-	engine.arrangeRoles();
+	engine.start();
 
 	return {
 		id: room.id,
 		ownerKey: room.ownerKey,
 		roles: engine.roles.map(role => role.toNum()),
+		missionCaptain: engine.missionCaptain,
 	};
 }
 
