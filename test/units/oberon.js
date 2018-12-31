@@ -6,7 +6,7 @@ const Role = require('../../game/Role');
 const Team = require('../../game/Team');
 
 module.exports = {
-	name: 'rebel vision',
+	name: 'Oberon vision',
 	run: async function testStatus(client) {
 		let res;
 
