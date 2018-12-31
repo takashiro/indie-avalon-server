@@ -6,7 +6,7 @@ const Skill = require('../Skill');
 class Morgana extends Skill {
 
 	constructor() {
-		super(Timing.PercivalVision, Role.Morgana);
+		super(Timing.Vision, Role.Morgana);
 	}
 
 	onEffect(engine, player) {

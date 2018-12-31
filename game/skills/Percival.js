@@ -18,7 +18,7 @@ class Percival extends Skill {
 			}
 		}
 
-		engine.trigger(Timing.PercivalVision, percival, magicians);
+		engine.trigger(Timing.Vision, percival, magicians);
 		info.magicians = magicians;
 	}
 

@@ -1,8 +1,7 @@
 
 const Timing = {
 	GameStart: 1,
-	MerlinForecast: 2,
-	PercivalVision: 3,
+	Vision: 2,
 };
 
 module.exports = Timing;

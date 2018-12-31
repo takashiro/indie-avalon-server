@@ -18,7 +18,7 @@ class Merlin extends Skill {
 			}
 		}
 
-		engine.trigger(Timing.MerlinForecast, rebels);
+		engine.trigger(Timing.Vision, merlin, rebels);
 		info.rebels = rebels;
 	}
 
