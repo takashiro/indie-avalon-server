@@ -6,4 +6,5 @@ module.exports = [
 	require('./merlin'),
 	require('./percival'),
 	require('./rebel'),
+	require('./oberon'),
 ];
