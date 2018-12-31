@@ -7,4 +7,5 @@ module.exports = [
 	require('./percival'),
 	require('./rebel'),
 	require('./oberon'),
+	require('./mordred'),
 ];
