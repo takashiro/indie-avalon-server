@@ -44,7 +44,7 @@ class Engine {
 		shuffle(roles);
 
 		for (let seat = 1; seat <= this.playerNum; seat++) {
-			this.seats.set(seat, new Player(roles[seat - 1]));
+			this.seats.set(seat, new Player(seat, roles[seat - 1]));
 		}
 	}
 
@@ -72,9 +72,9 @@ class Engine {
 		let result = {role: undefined};
 		if (player.getSeatKey() === null) {
 			player.setSeatKey(seatKey);
-			result.role = player.role;
+			result.role = player.getRole();
 		} else if (player.getSeatKey() === seatKey) {
-			result.role = player.role;
+			result.role = player.getRole();
 		}
 
 		if (result.role) {

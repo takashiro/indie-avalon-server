@@ -10,7 +10,7 @@ class Morgana extends Skill {
 	}
 
 	onEffect(engine, player) {
-		return player.role === Role.Percival;
+		return player.getRole() === Role.Percival;
 	}
 
 	effect(engine, percival, magicians) {

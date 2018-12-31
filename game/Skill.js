@@ -21,7 +21,7 @@ class Skill {
 	 * @return {boolean}
 	 */
 	onEffect(engine, player) {
-		return player && player.role === this.role;
+		return player && player.getRole() === this.role;
 	}
 
 	/**

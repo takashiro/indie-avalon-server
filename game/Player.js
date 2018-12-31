@@ -6,11 +6,45 @@ class Player {
 
 	/**
 	 * Create a Player instance
+	 * @param {number} seat
 	 * @param {Role} role
 	 */
-	constructor(role) {
-		this.role = role;
+	constructor(seat, role) {
+		this.seat = seat;
 		this.seatKey = null;
+		this.role = role;
+	}
+
+	/**
+	 * Get role
+	 * @return {Role}
+	 */
+	getRole() {
+		return this.role;
+	}
+
+	/**
+	 * Set role
+	 * @param {Role} role
+	 */
+	setRole(role) {
+		this.role = role;
+	}
+
+	/**
+	 * Get seat number
+	 * @return {number}
+	 */
+	getSeat() {
+		return this.seat;
+	}
+
+	/**
+	 * Set seat number
+	 * @param {number} seat
+	 */
+	setSeat(seat) {
+		this.seat = seat;
 	}
 
 	/**
