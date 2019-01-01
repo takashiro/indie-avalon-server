@@ -1,18 +1,18 @@
 
 /**
- * Read JSON object from a stream
+ * Read text from a stream
  * @param {Stream} stream
  * @return {Promise<object>} JSON Object
  */
-function readStream(stream) {
+function readText(stream) {
 	return new Promise(function (resolve, reject) {
 		let body = [];
 		stream.on('data', chunk => body.push(chunk));
 		stream.on('error', reject);
 		stream.on('end', function () {
-			let json = Buffer.concat(body).toString();
+			let text = Buffer.concat(body).toString();
 			try {
-				resolve(JSON.parse(json));
+				resolve(text);
 			} catch (error) {
 				console.error('Failed to parse: ' + json);
 				reject(error);
@@ -21,4 +21,4 @@ function readStream(stream) {
 	});
 }
 
-module.exports = readStream;
+module.exports = readText;

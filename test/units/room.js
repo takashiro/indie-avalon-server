@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 
-const read = require('../readStream');
+const read = require('../readJSON');
 const UnitTest = require('../UnitTest');
 
 class RoomTest extends UnitTest {
