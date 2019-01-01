@@ -22,16 +22,19 @@ const config = {
 	const tests = require('./test/units');
 
 	let failures = 0;
-	for (let test of tests) {
-		console.log(`Testing ${test.name}...`);
+	for (let UnitTest of tests) {
+		console.log(`--- ${UnitTest.name} ---`);
 		try {
+			let test = new UnitTest;
+			console.log(test.name);
 			await test.run(client);
-			console.log('Passed');
+			console.log('--- Passed ---');
 		} catch (error) {
-			console.log('Failed');
+			console.log('--- Failed ---');
 			console.error(error);
 			failures++;
 		}
+		console.log('');
 	}
 
 	console.log(`Result: ${tests.length - failures} / ${tests.length}`);

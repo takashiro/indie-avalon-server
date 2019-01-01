@@ -2,11 +2,16 @@
 const assert = require('assert');
 const read = require('../readStream');
 
+const UnitTest = require('../UnitTest');
 const randstr = require('../../util/randstr');
 
-module.exports = {
-	name: 'Take seat',
-	run: async function testStatus(client) {
+class RoleTest extends UnitTest {
+
+	constructor() {
+		super('Take seat');
+	}
+
+	async run(client) {
 		let res;
 
 		console.log('Create a room');
@@ -62,4 +67,7 @@ module.exports = {
 		res = await client.delete('room', {id: room.id});
 		assert.strictEqual(res.statusCode, 200);
 	}
-};
+
+}
+
+module.exports = RoleTest;

@@ -3,10 +3,15 @@
 const assert = require('assert');
 
 const read = require('../readStream');
+const UnitTest = require('../UnitTest');
 
-module.exports = {
-	name: 'create/enter/delete room',
-	run: async function testStatus(client) {
+class RoomTest extends UnitTest {
+
+	constructor() {
+		super('create/enter/delete room');
+	}
+
+	async run(client) {
 		let res;
 		let status1 = await read(await client.get('status'));
 
@@ -37,4 +42,7 @@ module.exports = {
 		let deleted = await read(res);
 		assert.strictEqual(room.id, deleted.id);
 	}
-};
+
+}
+
+module.exports = RoomTest;

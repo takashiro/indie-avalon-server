@@ -2,11 +2,17 @@
 const assert = require('assert');
 const read = require('../readStream');
 
+const UnitTest = require('../UnitTest');
+
 const Role = require('../../game/Role');
 
-module.exports = {
-	name: 'Percival vision',
-	run: async function testStatus(client) {
+class PercivalTest extends UnitTest {
+
+	constructor() {
+		super('Percival vision');
+	}
+
+	async run(client) {
 		let res;
 
 		console.log('Create a room');
@@ -58,4 +64,7 @@ module.exports = {
 		let deleted = await read(res);
 		assert.strictEqual(room.id, deleted.id);
 	}
-};
+
+}
+
+module.exports = PercivalTest;

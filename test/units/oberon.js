@@ -2,12 +2,18 @@
 const assert = require('assert');
 const read = require('../readStream');
 
+const UnitTest = require('../UnitTest');
+
 const Role = require('../../game/Role');
 const Team = require('../../game/Team');
 
-module.exports = {
-	name: 'Oberon vision',
-	run: async function testStatus(client) {
+class OberonTest extends UnitTest {
+
+	constructor() {
+		super('Oberon vision');
+	}
+
+	async run(client) {
 		let res;
 
 		// Create a new room
@@ -92,4 +98,6 @@ module.exports = {
 		let deleted = await read(res);
 		assert.strictEqual(room.id, deleted.id);
 	}
-};
+}
+
+module.exports = OberonTest;

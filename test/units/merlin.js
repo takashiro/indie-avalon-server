@@ -2,12 +2,18 @@
 const assert = require('assert');
 const read = require('../readStream');
 
+const UnitTest = require('../UnitTest');
+
 const Role = require('../../game/Role');
 const Team = require('../../game/Team');
 
-module.exports = {
-	name: 'Merlin forecast',
-	run: async function testStatus(client) {
+class MerlinTest extends UnitTest {
+
+	constructor() {
+		super('Merlin forecast');
+	}
+
+	async run(client) {
 		let res;
 
 		console.log('Create a room');
@@ -59,4 +65,7 @@ module.exports = {
 		let deleted = await read(res);
 		assert.strictEqual(room.id, deleted.id);
 	}
-};
+
+}
+
+module.exports = MerlinTest;
