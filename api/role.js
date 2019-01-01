@@ -25,10 +25,14 @@ function GET(params) {
 
 	let seatKey = params.seatKey;
 	if (!seatKey) {
-		throw new HttpError(400, 'Invalid seatKey');
+		throw new HttpError(400, 'Invalid seat key');
 	}
 
-	return engine.takeSeat(seat, seatKey);
+	let taken = engine.takeSeat(seat, seatKey);
+	if (!taken.role) {
+		throw new HttpError(403, 'Seat has been taken');
+	}
+	return taken;
 }
 
 module.exports = {GET};
