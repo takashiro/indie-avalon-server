@@ -52,7 +52,6 @@ class UnitTest {
 		return JSON.parse(resText);
 	}
 
-
 	/**
 	 * Assert JSON response values
 	 * @param {*} expected
@@ -69,9 +68,11 @@ class UnitTest {
 	 * @return {Promise}
 	 */
 	async assertError(code, message) {
-		assert.strictEqual(this.res.statusCode, code);
+		let resCode = this.res.statusCode;
 		let resText = await readText(this.res);
-		assert.strictEqual(resText, message);
+		if (resCode !== code || resText !== message) {
+			assert.fail(`Unexpected: ${resCode} ${resText}`);
+		}
 	}
 
 }
