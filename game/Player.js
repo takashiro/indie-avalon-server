@@ -57,7 +57,7 @@ class Player {
 
 	/**
 	 * Get seat key
-	 * @return {number}
+	 * @return {string}
 	 */
 	getSeatKey() {
 		return this.seatKey;
@@ -65,7 +65,7 @@ class Player {
 
 	/**
 	 * Set seat key
-	 * @param {number} key
+	 * @param {string} key
 	 */
 	setSeatKey(key) {
 		this.seatKey = key;

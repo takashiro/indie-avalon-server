@@ -70,7 +70,7 @@ class Engine {
 	/**
 	 * Take one seat
 	 * @param {number} seat seat number
-	 * @param {number} seatKey seat key
+	 * @param {string} seatKey seat key
 	 * @return {Role} if the seat hasn't been take, return the role.
 	 */
 	takeSeat(seat, seatKey) {

@@ -23,8 +23,8 @@ function GET(params) {
 		throw new HttpError(404, 'Seat does not exist');
 	}
 
-	let seatKey = parseInt(params.seatKey, 10);
-	if (isNaN(seatKey) || seatKey <= 0) {
+	let seatKey = params.seatKey;
+	if (!seatKey) {
 		throw new HttpError(400, 'Invalid seatKey');
 	}
 

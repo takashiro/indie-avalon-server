@@ -1,4 +1,6 @@
 
+const randstr = require('../util/randstr');
+
 /**
  * Game Room
  */
@@ -7,7 +9,7 @@ class Room {
 	constructor() {
 		this.id = 0;
 		this.engine = null;
-		this.ownerKey = Math.floor(Math.random() * 0xFFFF);
+		this.ownerKey = randstr(32);
 	}
 
 	/**

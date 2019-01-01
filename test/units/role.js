@@ -2,6 +2,8 @@
 const assert = require('assert');
 const read = require('../readStream');
 
+const randstr = require('../../util/randstr');
+
 module.exports = {
 	name: 'Take seat',
 	run: async function testStatus(client) {
@@ -25,7 +27,7 @@ module.exports = {
 
 		let takenSeats = [];
 		for (let i = 0; i < roles.length; i++) {
-			let seatKey = Math.floor(Math.random() * 0xFFFF);
+			let seatKey = randstr(32);
 			let seat = i + 1;
 			console.log('Take seat ' + seat);
 
