@@ -1,7 +1,5 @@
 
 const assert = require('assert');
-const read = require('../readJSON');
-
 const UnitTest = require('../UnitTest');
 
 const Role = require('../../game/Role');
@@ -12,9 +10,7 @@ class MinionTest extends UnitTest {
 		super('minion vision');
 	}
 
-	async run(client) {
-		let res;
-
+	async run() {
 		// Create a new room
 		console.log('Create a room');
 		let roles = [
@@ -28,19 +24,15 @@ class MinionTest extends UnitTest {
 			Role.Assassin,
 			Role.Minion,
 		];
-		res = await client.post('room', {roles: roles.map(role => role.toNum())});
-		assert.strictEqual(res.statusCode, 200);
-
-		let room = await read(res);
+		await this.post('room', {roles: roles.map(role => role.toNum())});
+		let room = await this.getJSON();
 
 		// Test minion vision
 		let visions = [];
 		for (let i = 0; i < roles.length; i++) {
 			let seat = i + 1;
-			res = await client.get('role', {id: room.id, seat, seatKey: seat});
-			assert.strictEqual(res.statusCode, 200);
-
-			let result = await read(res);
+			await this.get('role', {id: room.id, seat, seatKey: seat});
+			let result = await this.getJSON();
 			let role = Role.fromNum(result.role);
 			if (role.team === Team.Minion) {
 				visions.push([seat, ...result.mates]);
@@ -61,11 +53,8 @@ class MinionTest extends UnitTest {
 
 		// Delete the room
 		console.log('Delete the room');
-		res = await client.delete('room', {id: room.id});
-		assert.strictEqual(res.statusCode, 200);
-
-		let deleted = await read(res);
-		assert.strictEqual(room.id, deleted.id);
+		await this.delete('room', {id: room.id});
+		await this.assertJSON({id: room.id});
 	}
 }
 

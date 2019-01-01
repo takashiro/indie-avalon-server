@@ -34,8 +34,8 @@ class HttpClient {
 		this.port = port;
 	}
 
-	post(api) {
-		if (arguments.length == 2) {
+	post(api, params, input) {
+		if (input === undefined) {
 			return this.request('POST', api, null, arguments[1]);
 		} else {
 			return this.request('POST', api, arguments[1], arguments[2]);

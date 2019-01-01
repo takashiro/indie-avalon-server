@@ -1,8 +1,6 @@
 
 
 const assert = require('assert');
-
-const read = require('../readJSON');
 const UnitTest = require('../UnitTest');
 
 class RoomTest extends UnitTest {
@@ -11,20 +9,19 @@ class RoomTest extends UnitTest {
 		super('create/enter/delete room');
 	}
 
-	async run(client) {
-		let res;
-		let status1 = await read(await client.get('status'));
+	async run() {
+		await this.get('status');
+		let status1 = await this.getJSON();
 
 		console.log('Create a room');
 		let roles = [1, 2, 3, 4, 5];
-		res = await client.post('room', {roles});
-		assert.strictEqual(res.statusCode, 200);
-
-		let room = await read(res);
+		await this.post('room', {roles});
+		let room = await this.getJSON();
 		assert.strictEqual(room.roles.length, roles.length);
 
 		console.log('Check lobby status');
-		let status2 = await read(await client.get('status'));
+		await this.get('status');
+		let status2 = await this.getJSON();
 		assert.strictEqual(status1.roomNum + 1, status2.roomNum);
 
 		console.log('Check roles');
@@ -36,11 +33,8 @@ class RoomTest extends UnitTest {
 		assert(room.questLeader > 0 && room.questLeader <= roles.length, 'Check quest leader');
 
 		console.log('Delete a room');
-		res = await client.delete('room', {id: room.id});
-		assert.strictEqual(res.statusCode, 200);
-
-		let deleted = await read(res);
-		assert.strictEqual(room.id, deleted.id);
+		await this.delete('room', {id: room.id});
+		await this.assertJSON({id: room.id});
 	}
 
 }

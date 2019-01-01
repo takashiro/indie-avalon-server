@@ -11,50 +11,39 @@ class RoleTest extends UnitTest {
 		super('Take seat');
 	}
 
-	async run(client) {
-		let res;
-
+	async run() {
 		console.log('Create a room');
 		let roles = [1, 1, 2, 2, 3, 4];
-		res = await client.post('room', {roles});
-		assert.strictEqual(res.statusCode, 200);
-
-		let room = await read(res);
+		await this.post('room', {roles});
+		let room = await this.getJSON();
 
 		console.log('Test invalid room id');
-		res = await client.get('role', {id: 1000, seat: 1});
-		assert.strictEqual(res.statusCode, 404);
+		await this.get('role', {id: 1000, seat: 1});
+		await this.assertError(404, 'Room does not exist');
 
-		console.log('Test invalid seatKey');
+		console.log('Test invalid seat key');
 		let seat = 1 + Math.floor(Math.random() * roles.length);
-		res = await client.get('role', {id: room.id, seat});
-		assert.strictEqual(res.statusCode, 400);
+		await this.get('role', {id: room.id, seat});
+		await this.assertError(400, 'Invalid seat key');
 
 		let takenSeats = [];
 		for (let i = 0; i < roles.length; i++) {
 			let seatKey = randstr(32);
 			let seat = i + 1;
 			console.log('Take seat ' + seat);
-
-			res = await client.get('role', {id: room.id, seat, seatKey});
-			assert.strictEqual(res.statusCode, 200);
-
-			let result = await read(res);
+			await this.get('role', {id: room.id, seat, seatKey});
+			let result = await this.getJSON();
 			if (result.role) {
 				takenSeats.push(result.role);
 			} else {
 				assert.fail('No role is found');
 			}
 
-			for (let invalidSeatKey of [undefined, seatKey + 1]) {
-				res = await client.get('role', {id: room.id, seat, seatKey: invalidSeatKey});
-				if (res.statusCode === 200) {
-					result = await read(res);
-					if (result.role) {
-						assert.fail('Taken seat should not be seen');
-					}
-				}
-			}
+			await this.get('role', {id: room.id, seat});
+			await this.assertError(400, 'Invalid seat key');
+
+			await this.get('role', {id: room.id, seat, seatKey: seatKey + 1});
+			await this.assertError(403, 'Seat has been taken');
 		}
 		assert.strictEqual(takenSeats.length, roles.length);
 
@@ -64,8 +53,8 @@ class RoleTest extends UnitTest {
 		}
 
 		console.log('Delete the room');
-		res = await client.delete('room', {id: room.id});
-		assert.strictEqual(res.statusCode, 200);
+		await this.delete('room', {id: room.id});
+		await this.assertJSON({id: room.id});
 	}
 
 }

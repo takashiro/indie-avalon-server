@@ -24,16 +24,18 @@ const config = {
 	let failures = 0;
 	for (let UnitTest of tests) {
 		console.log(`--- ${UnitTest.name} ---`);
+		let test = new UnitTest;
+		console.log(test.name);
+		test.setClient(client);
 		try {
-			let test = new UnitTest;
-			console.log(test.name);
-			await test.run(client);
+			await test.run();
 			console.log('--- Passed ---');
 		} catch (error) {
 			console.log('--- Failed ---');
 			console.error(error);
 			failures++;
 		}
+
 		console.log('');
 	}
 
