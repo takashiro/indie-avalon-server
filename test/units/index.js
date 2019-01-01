@@ -8,4 +8,5 @@ module.exports = [
 	require('./minion'),
 	require('./oberon'),
 	require('./mordred'),
+	require('./quest'),
 ];

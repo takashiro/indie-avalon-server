@@ -47,8 +47,11 @@ class UnitTest {
 	 * @return {Promise<*>}
 	 */
 	async getJSON() {
-		assert.strictEqual(this.res.statusCode, 200);
+		let resCode = this.res.statusCode;
 		let resText = await readText(this.res);
+		if (this.res.statusCode !== 200) {
+			assert.fail(`Unexpected: ${resCode} ${resText}`);
+		}
 		return JSON.parse(resText);
 	}
 

@@ -18,6 +18,7 @@ class Engine {
 		this.seats = new Map;
 		this.playerNum = 0;
 		this.questLeader = 0;
+		this.quests = [];
 	}
 
 	/**
@@ -26,6 +27,14 @@ class Engine {
 	 */
 	setPlayerNum(num) {
 		this.playerNum = num;
+	}
+
+	/**
+	 * Get the number of players
+	 * @return {number}
+	 */
+	getPlayerNum() {
+		return this.playerNum;
 	}
 
 	/**
@@ -119,6 +128,26 @@ class Engine {
 			if (skill.effect(this, player, extra)) {
 				break;
 			}
+		}
+	}
+
+	/**
+	 * Add a quest into the game
+	 * @param {Quest} quest
+	 */
+	addQuest(quest) {
+		this.quests.push(quest);
+	}
+
+	/**
+	 * The current quest
+	 * @return {Quest}
+	 */
+	get currentQuest() {
+		if (this.quests.length > 0) {
+			return this.quests[this.quests.length - 1];
+		} else {
+			return null;
 		}
 	}
 
