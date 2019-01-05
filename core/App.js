@@ -9,6 +9,7 @@ const Lobby = require('./Lobby');
 const DefaultConfig = {
 	socket: '/var/run/indie-avalon/indie-avalon.sock',
 	maxRoomLimit: 1000,
+	roomExpiry: 43200,
 };
 
 /**
@@ -113,7 +114,7 @@ class App {
 			...config,
 		};
 
-		this.lobby = new Lobby(this.config.maxRoomLimit);
+		this.lobby = new Lobby(this.config.roomExpiry * 1000, this.config.maxRoomLimit);
 		this.server = http.createServer(requestListener.bind(this));
 	}
 

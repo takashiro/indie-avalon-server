@@ -1,4 +1,5 @@
 {
 	"socket": "/var/run/indie-avalon/indie-avalon.sock",
-	"roomNumLimit": 1000
+	"roomNumLimit": 1000,
+	"roomExpiry": 43200
 }

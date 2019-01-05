@@ -9,4 +9,5 @@ module.exports = [
 	require('./oberon'),
 	require('./mordred'),
 	require('./quest'),
+	require('./lobby'),
 ];

@@ -6,9 +6,10 @@ let nextRoomId = 0;
  */
 class Lobby {
 
-	constructor(roomNumLimit = 1000) {
+	constructor(roomExpiry = 12 * 60 * 60 * 1000, roomNumLimit = 1000) {
 		this.roomNumLimit = roomNumLimit;
 		this.rooms = new Map;
+		this.roomExpiry = roomExpiry;
 	}
 
 	/**
@@ -58,6 +59,12 @@ class Lobby {
 
 		room.id = nextRoomId;
 		this.rooms.set(room.id, room);
+
+		let roomId = room.id;
+		setTimeout(() => {
+			this.remove(roomId);
+		}, this.roomExpiry);
+
 		return true;
 	}
 
