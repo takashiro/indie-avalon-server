@@ -58,6 +58,7 @@ class UnitTest {
 	/**
 	 * Assert JSON response values
 	 * @param {*} expected
+	 * @return {Promise}
 	 */
 	async assertJSON(expected) {
 		let actual = await this.getJSON();

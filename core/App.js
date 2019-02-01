@@ -3,7 +3,7 @@ const http = require('http');
 const path = require('path');
 const querystring = require('querystring');
 
-const HttpError = require('../core/HttpError');
+const HttpError = require('./HttpError');
 const Lobby = require('./Lobby');
 
 const DefaultConfig = {
@@ -29,7 +29,16 @@ function readJSON(stream) {
 
 		stream.on('end', function () {
 			let input = Buffer.concat(trunks).toString();
-			resolve(JSON.parse(input));
+			if (input) {
+				try {
+					input = JSON.parse(input);
+					resolve(input);
+				} catch (error) {
+					reject(error);
+				}
+			} else {
+				resolve({});
+			}
 		});
 	});
 }

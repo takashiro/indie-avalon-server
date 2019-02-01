@@ -19,6 +19,13 @@ class RoomTest extends UnitTest {
 		let room = await this.getJSON();
 		assert.strictEqual(room.roles.length, roles.length);
 
+		await this.get('room');
+		await this.assertError(400, 'Invalid room id');
+		await this.get('room', {test: 1});
+		await this.assertError(400, 'Invalid room id');
+		await this.get('room', {id: 'abc'});
+		await this.assertError(400, 'Invalid room id');
+
 		console.log('Check lobby status');
 		await this.get('status');
 		let status2 = await this.getJSON();
