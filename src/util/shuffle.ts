@@ -1,9 +1,9 @@
 
 /**
  * Shuffle an array in place
- * @param {array} a
+ * @param a
  */
-function shuffle(a) {
+function shuffle<Element>(a: Element[]): void {
     for (let i = a.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         let x = a[i];
@@ -12,4 +12,4 @@ function shuffle(a) {
     }
 }
 
-module.exports = shuffle;
+export default shuffle;
