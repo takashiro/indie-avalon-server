@@ -1,10 +1,18 @@
+import { LobbyStatus } from '@karuta/avalon-core';
+
+import Room from './Room';
 
 let nextRoomId = 0;
 
 /**
  * Room Manager
  */
-class Lobby {
+export default class Lobby {
+	protected roomNumLimit: number;
+
+	protected rooms: Map<number, Room>;
+
+	protected roomExpiry: number;
 
 	constructor(roomExpiry = 12 * 60 * 60 * 1000, roomNumLimit = 1000) {
 		this.roomNumLimit = roomNumLimit;
@@ -13,10 +21,9 @@ class Lobby {
 	}
 
 	/**
-	 * Current status of Lobby
-	 * @return {{roomNum: number, roomNumLimit: number}}
+	 * @return Current status of Lobby
 	 */
-	getStatus() {
+	getStatus(): LobbyStatus {
 		return {
 			roomNum: this.rooms.size,
 			roomNumLimit: this.roomNumLimit,
@@ -24,28 +31,26 @@ class Lobby {
 	}
 
 	/**
-	 * Check if there's still any vacancy to create a new room
-	 * @return {boolean}
+	 * @return Check if there's still any vacancy to create a new room
 	 */
-	isAvailable() {
+	isAvailable(): boolean {
 		return this.rooms.size < this.roomNumLimit;
 	}
 
 	/**
-	 * Get the room
-	 * @param {number} id
-	 * @return {Room}
+	 * Get a room by id
+	 * @param id
 	 */
-	get(id) {
+	get(id: number): Room | undefined {
 		return this.rooms.get(id);
 	}
 
 	/**
 	 * Add a new room and assign room id
-	 * @param {Room} room
-	 * @return {boolean} Whether the room is successfully added
+	 * @param room
+	 * @return Whether the room is successfully added
 	 */
-	add(room) {
+	add(room: Room): boolean {
 		if (this.rooms.size >= this.roomNumLimit) {
 			return false;
 		}
@@ -57,10 +62,10 @@ class Lobby {
 			}
 		} while (this.rooms.has(nextRoomId));
 
-		room.id = nextRoomId;
-		this.rooms.set(room.id, room);
+		room.setId(nextRoomId);
+		const roomId = room.getId();
+		this.rooms.set(roomId, room);
 
-		let roomId = room.id;
 		setTimeout(() => {
 			this.remove(roomId);
 		}, this.roomExpiry);
@@ -70,10 +75,10 @@ class Lobby {
 
 	/**
 	 * Delete an existing room by room id
-	 * @param {number} id Room ID
-	 * @return {boolean} Whether the room exists and is successfully deleted
+	 * @param id Room ID
+	 * @return Whether the room exists and is successfully deleted
 	 */
-	remove(id) {
+	remove(id: number): boolean {
 		if (this.rooms.has(id)) {
 			this.rooms.delete(id);
 			return true;
@@ -81,7 +86,4 @@ class Lobby {
 			return false;
 		}
 	}
-
 }
-
-module.exports = Lobby;

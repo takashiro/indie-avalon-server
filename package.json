@@ -25,6 +25,7 @@
   "homepage": "https://github.com/takashiro/indie-avalon-server#readme",
   "dependencies": {},
   "devDependencies": {
+    "@types/node": "^12.12.50",
     "typescript": "^3.9.7"
   }
 }

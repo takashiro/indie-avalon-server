@@ -17,6 +17,14 @@ export default class Room {
 		this.ownerKey = randstr(32);
 	}
 
+	getId(): number {
+		return this.id;
+	}
+
+	setId(id: number): void {
+		this.id = id;
+	}
+
 	/**
 	 * Set up a game driver
 	 * @param driver
