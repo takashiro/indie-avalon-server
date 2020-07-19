@@ -18,10 +18,6 @@ export default class Minion extends Skill<Vision> {
 
 	process(vision: Vision): boolean {
 		const driver = this.getDriver();
-		if (!driver) {
-			return false;
-		}
-
 		const self = vision.player;
 		const mates = [];
 		for (const [seat, player] of driver.getPlayers()) {

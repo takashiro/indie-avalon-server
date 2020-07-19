@@ -19,10 +19,6 @@ export default class Merlin extends Skill<Vision> {
 
 	process(vision: Vision): boolean {
 		const driver = this.getDriver();
-		if (!driver) {
-			return false;
-		}
-
 		const minions: number[] = [];
 		for (const [seat, player] of driver.getPlayers()) {
 			if (player.getTeam() === Team.Minion) {
