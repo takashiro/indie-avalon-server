@@ -115,6 +115,7 @@ export default class GameDriver extends EventDriver<Event> {
 		}
 
 		const vision: Vision = {
+			player,
 			role: player.getRole(),
 		};
 		this.trigger(Event.TakingSeat, vision);
