@@ -20,6 +20,22 @@ export default class Lobby {
 		this.roomExpiry = roomExpiry;
 	}
 
+	setRoomNumLimit(limit: number): void {
+		this.roomNumLimit = limit;
+	}
+
+	getRoomNumLimit(): number {
+		return this.roomNumLimit;
+	}
+
+	setRoomExpiry(expiry: number): void {
+		this.roomExpiry;
+	}
+
+	getRoomExpiry(): number {
+		return this.roomExpiry;
+	}
+
 	/**
 	 * @return Current status of Lobby
 	 */
