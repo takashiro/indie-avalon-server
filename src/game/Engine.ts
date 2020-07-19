@@ -1,14 +1,29 @@
+import {
+	Role,
+} from '@karuta/avalon-core';
 
-const shuffle = require('../util/shuffle');
+import shuffle from '../util/shuffle';
 
-const Timing = require('./Timing');
-const SkillList = require('./skills');
-const Player = require('./Player');
+import Timing from './Timing';
+import Player  from './Player';
+import Quest from './Quest';
+
+import SkillList from './skills';
+import Vision from './Vision';
 
 /**
  * Game Engine
  */
-class Engine {
+export default class Engine {
+	protected roles: Role[];
+
+	protected seats: Map<number, Player>;
+
+	protected playerNum: number;
+
+	protected questLeader: number;
+
+	protected quests: Quest[];
 
 	/**
 	 * Create a game engine
@@ -23,17 +38,16 @@ class Engine {
 
 	/**
 	 * Set the number of players
-	 * @param {number} num
+	 * @param num
 	 */
-	setPlayerNum(num) {
+	setPlayerNum(num: number): void {
 		this.playerNum = num;
 	}
 
 	/**
-	 * Get the number of players
-	 * @return {number}
+	 * @return the number of players
 	 */
-	getPlayerNum() {
+	getPlayerNum(): number {
 		return this.playerNum;
 	}
 
@@ -41,14 +55,14 @@ class Engine {
 	 * Set up roles
 	 * @param {Role[]} roles
 	 */
-	setRoles(roles) {
+	setRoles(roles: Role[]): void {
 		this.roles = roles;
 	}
 
 	/**
 	 * Start game
 	 */
-	start() {
+	start(): void {
 		this.playerNum = this.roles.length;
 		this.questLeader = 1 + Math.floor(Math.random() * this.playerNum);
 
@@ -58,8 +72,8 @@ class Engine {
 	/**
 	 * Arrange roles
 	 */
-	arrangeRoles() {
-		let roles = [...this.roles];
+	arrangeRoles(): void {
+		const roles = [...this.roles];
 		shuffle(roles);
 
 		for (let seat = 1; seat <= this.playerNum; seat++) {
@@ -68,40 +82,37 @@ class Engine {
 	}
 
 	/**
-	 * Check if the seat exists
-	 * @param {*} seat
-	 * @return {boolean}
+	 * @param seat
+	 * @return Check if the seat exists
 	 */
-	hasSeat(seat) {
+	hasSeat(seat: number): boolean {
 		return this.seats.has(seat);
 	}
 
 	/**
 	 * Take one seat
-	 * @param {number} seat seat number
-	 * @param {string} seatKey seat key
-	 * @return {Role} if the seat hasn't been take, return the role.
+	 * @param seat seat number
+	 * @param seatKey seat key
+	 * @return if the seat hasn't been take, return the role.
 	 */
-	takeSeat(seat, seatKey) {
+	takeSeat(seat: number, seatKey: number): Vision | null {
 		let player = this.seats.get(seat);
 		if (!player) {
 			return null;
 		}
 
-		let result = {role: undefined};
 		if (player.getSeatKey() === null) {
 			player.setSeatKey(seatKey);
-			result.role = player.getRole();
-		} else if (player.getSeatKey() === seatKey) {
-			result.role = player.getRole();
+		} else if (player.getSeatKey() !== seatKey) {
+			return null;
 		}
 
-		if (result.role) {
-			this.trigger(Timing.GameStart, player, result);
-			result.role = result.role.toNum();
-		}
+		const vision: Vision = {
+			role: player.getRole(),
+		};
+		this.trigger(Timing.GameStart, player, vision);
 
-		return result;
+		return vision;
 	}
 
 	/**
@@ -109,17 +120,24 @@ class Engine {
 	 * @param {number} seat
 	 * @return {Player}
 	 */
-	getPlayer(seat) {
+	getPlayer(seat: number): Player | undefined {
 		return this.seats.get(seat);
 	}
 
 	/**
-	 * Invoke corresponding role skills
-	 * @param {Timing} timing
-	 * @param {Player} player
-	 * @param {*} extra
+	 * @return All players
 	 */
-	trigger(timing, player, extra) {
+	getPlayers(): Map<number, Player> {
+		return this.seats;
+	}
+
+	/**
+	 * Invoke corresponding role skills
+	 * @param timing
+	 * @param player
+	 * @param extra
+	 */
+	trigger<ParamType>(timing: Timing, player: Player, extra: ParamType): void {
 		for (let skill of SkillList) {
 			if (skill.timing !== timing || !skill.onEffect(this, player)) {
 				continue;
@@ -133,17 +151,16 @@ class Engine {
 
 	/**
 	 * Add a quest into the game
-	 * @param {Quest} quest
+	 * @param quest
 	 */
-	addQuest(quest) {
+	addQuest(quest: Quest): void {
 		this.quests.push(quest);
 	}
 
 	/**
-	 * The current quest
-	 * @return {Quest}
+	 * @return The current quest
 	 */
-	get currentQuest() {
+	get currentQuest(): Quest | null {
 		if (this.quests.length > 0) {
 			return this.quests[this.quests.length - 1];
 		} else {
@@ -152,5 +169,3 @@ class Engine {
 	}
 
 }
-
-module.exports = Engine;

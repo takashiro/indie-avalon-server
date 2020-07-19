@@ -7,10 +7,19 @@ const QUEST_PLAN = [
 	[3, 4, 4, 5, 5],
 ];
 
-/**
- * Quest
- */
-class Quest {
+export default class Quest {
+	protected seq: number;
+
+	protected leader: number;
+
+	protected members: number[];
+
+	protected success: number;
+
+	protected fail: number;
+
+	protected completed: number[];
+
 
 	/**
 	 * Create a quest
@@ -18,7 +27,7 @@ class Quest {
 	 * @param {number} leader seat number of the leader
 	 * @param {number[]} members seat number of quest members
 	 */
-	constructor(seq, leader, members) {
+	constructor(seq: number, leader: number, members: number[]) {
 		this.seq = seq;
 		this.leader = leader;
 		this.members = members;
@@ -28,16 +37,14 @@ class Quest {
 	}
 
 	/**
-	 * The number of members who have completed the quest
-	 * @return {number}
+	 * @return The number of members who have completed the quest
 	 */
-	get progress() {
+	get progress(): number {
 		return this.success + this.fail;
 	}
 
 	/**
-	 * The total number of members
-	 * @return {number}
+	 * @return The total number of members
 	 */
 	get progressLimit() {
 		return this.members.length;
@@ -45,11 +52,11 @@ class Quest {
 
 	/**
 	 * Join the quest and choose success or failure
-	 * @param {number} seat
-	 * @param {boolean} success
-	 * @return {boolean} returns false if the member isn't permitted or has already completed before
+	 * @param seat
+	 * @param success
+	 * @return returns false if the member isn't permitted or has already completed before
 	 */
-	join(seat, success) {
+	join(seat: number, success: boolean): boolean {
 		if (this.members.indexOf(seat) < 0) {
 			return false;
 		}
@@ -70,9 +77,9 @@ class Quest {
 
 	/**
 	 * Check if the quest is successful
-	 * @param {number} playerNum
+	 * @param playerNum
 	 */
-	isSuccessful(playerNum) {
+	isSuccessful(playerNum: number): boolean {
 		if (this.progress < this.progressLimit) {
 			return false;
 		}
@@ -86,10 +93,10 @@ class Quest {
 
 	/**
 	 * Check if this is a protected quest
-	 * @param {number} playerNum the number of players
-	 * @return {boolean}
+	 * @param playerNum the number of players
+	 * @return
 	 */
-	isProtected(playerNum) {
+	isProtected(playerNum: number): boolean {
 		if (playerNum < 7) {
 			return false;
 		}
@@ -99,11 +106,11 @@ class Quest {
 
 	/**
 	 * Get the number of members for a quest
-	 * @param {number} playerNum the number of players
-	 * @param {number} seq the sequence of quest
-	 * @return {number} the number of quest members
+	 * @param playerNum the number of players
+	 * @param seq the sequence of quest
+	 * @return the number of quest members
 	 */
-	static getMemberNum(playerNum, seq) {
+	static getMemberNum(playerNum: number, seq: number): number {
 		let plan = playerNum < QUEST_PLAN.length ? QUEST_PLAN[playerNum] : QUEST_PLAN[QUEST_PLAN.length - 1];
 		if (plan) {
 			return plan[seq - 1];
@@ -111,7 +118,4 @@ class Quest {
 			return 0;
 		}
 	}
-
 }
-
-module.exports = Quest;
