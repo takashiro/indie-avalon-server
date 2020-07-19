@@ -7,7 +7,7 @@ import Event from './GameEvent';
 import Player  from './Player';
 import Quest from './Quest';
 import Vision from './Vision';
-import SkillList from './skills';
+import SkillList from '../skills';
 
 /**
  * Game Driver
