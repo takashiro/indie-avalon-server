@@ -4,10 +4,12 @@
 		"target": "ES2019",
 		"module": "CommonJS",
 		"moduleResolution": "node",
+		"esModuleInterop": true,
 		"lib": [
 			"ES2019"
 		],
-		"strict": true
+		"strict": true,
+		"sourceMap": true
 	},
 	"include": [
 		"src"

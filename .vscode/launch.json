@@ -7,8 +7,13 @@
 		{
 			"type": "node",
 			"request": "launch",
-			"name": "Launch Program",
-			"program": "${workspaceFolder}\\app.js"
+			"name": "Launch",
+			"program": "${workspaceFolder}/src/index.ts",
+			"cwd": "${workspaceFolder}",
+			"outFiles": [
+				"${workspaceFolder}/dist/**/*.js"
+			],
+			"preLaunchTask": "npm: debug"
 		},
 		{
 			"type": "node",
