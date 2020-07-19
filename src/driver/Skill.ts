@@ -21,10 +21,12 @@ export default abstract class Skill<ParamType> extends EventListener<Event, Para
 		return this.role;
 	}
 
-	getDriver(): GameDriver | undefined {
+	getDriver(): GameDriver {
 		const driver = super.getDriver();
 		if (driver instanceof GameDriver) {
 			return driver;
+		} else {
+			throw new Error('GameDriver is not defined.');
 		}
 	}
 }
