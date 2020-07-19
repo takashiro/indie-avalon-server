@@ -7,7 +7,7 @@ import {
 export default class Player {
 	protected seat: number;
 
-	protected seatKey: number;
+	protected seatKey?: string;
 
 	protected role: Role;
 
@@ -20,7 +20,6 @@ export default class Player {
 	 */
 	constructor(seat: number, role: Role) {
 		this.seat = seat;
-		this.seatKey = 0;
 		this.role = role;
 		this.team = RoleMap.get(role) || Team.Unknown;
 	}
@@ -46,11 +45,11 @@ export default class Player {
 		this.seat = seat;
 	}
 
-	getSeatKey(): number {
+	getSeatKey(): string | undefined {
 		return this.seatKey;
 	}
 
-	setSeatKey(key: number): void {
+	setSeatKey(key: string): void {
 		this.seatKey = key;
 	}
 }

@@ -9,7 +9,11 @@ import { lobby } from '../../core';
 import Room from '../../core/Room';
 import GameDriver from '../../driver/GameDriver';
 
+import seatRouter from './seat';
+
 const router = Router();
+
+router.use('/:id/seat', seatRouter);
 
 router.post('/', (req: Request, res: Response): void => {
 	let { roles } = req.body;
@@ -80,10 +84,18 @@ router.delete('/:id', (req: Request, res: Response): void => {
 		return;
 	}
 
-	if (!lobby.remove(id)) {
+	const room = lobby.get(id);
+	if (!room) {
 		res.status(404).send('The room does not exist');
 		return;
 	}
+
+	if (room.getOwnerKey() !== req.query.ownerKey) {
+		res.sendStatus(403);
+		return;
+	}
+
+	lobby.remove(id);
 
 	res.json({ id });
 });

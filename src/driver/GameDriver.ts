@@ -116,13 +116,13 @@ export default class GameDriver extends EventDriver<Event> {
 	 * @param seatKey seat key
 	 * @return if the seat hasn't been take, return the role.
 	 */
-	takeSeat(seat: number, seatKey: number): Vision | null {
+	takeSeat(seat: number, seatKey: string): Vision | null {
 		let player = this.seats.get(seat);
 		if (!player) {
 			return null;
 		}
 
-		if (player.getSeatKey() === null) {
+		if (!player.getSeatKey()) {
 			player.setSeatKey(seatKey);
 		} else if (player.getSeatKey() !== seatKey) {
 			return null;

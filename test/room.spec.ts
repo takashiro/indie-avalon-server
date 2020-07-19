@@ -20,7 +20,8 @@ it('creates a room', async () => {
 	const status = await agent.get('/status');
 	expect(status.body.roomNum).toBe(1);
 
-	const del = await agent.delete(`/room/${room.id}`);
+	const del = await agent.delete(`/room/${room.id}?ownerKey=${encodeURIComponent(room.ownerKey)}`);
+	expect(del.status).toBe(200);
 	expect(del.body.id).toBe(room.id);
 });
 
