@@ -1,20 +1,18 @@
-import {
-	Role,
-} from '@karuta/avalon-core';
+import { Role } from '@karuta/avalon-core';
 
 import shuffle from '../util/shuffle';
 
-import Timing from './Timing';
+import EventDriver from './EventDriver';
+import Event from './GameEvent';
 import Player  from './Player';
 import Quest from './Quest';
-
-import SkillList from './skills';
 import Vision from './Vision';
+import SkillList from './skills';
 
 /**
- * Game Engine
+ * Game Driver
  */
-export default class Engine {
+export default class GameDriver extends EventDriver<Event> {
 	protected roles: Role[];
 
 	protected seats: Map<number, Player>;
@@ -29,6 +27,8 @@ export default class Engine {
 	 * Create a game engine
 	 */
 	constructor() {
+		super();
+
 		this.roles = [];
 		this.seats = new Map;
 		this.playerNum = 0;
@@ -79,6 +79,13 @@ export default class Engine {
 		for (let seat = 1; seat <= this.playerNum; seat++) {
 			this.seats.set(seat, new Player(seat, roles[seat - 1]));
 		}
+
+		for (const SkillClass of SkillList) {
+			const skill = new SkillClass();
+			if (roles.includes(skill.getRole())) {
+				this.register(skill);
+			}
+		}
 	}
 
 	/**
@@ -110,7 +117,8 @@ export default class Engine {
 		const vision: Vision = {
 			role: player.getRole(),
 		};
-		this.trigger(Timing.GameStart, player, vision);
+		this.trigger(Event.TakingSeat, vision);
+		this.trigger(Event.AfterTakingSeat, vision);
 
 		return vision;
 	}
@@ -132,24 +140,6 @@ export default class Engine {
 	}
 
 	/**
-	 * Invoke corresponding role skills
-	 * @param timing
-	 * @param player
-	 * @param extra
-	 */
-	trigger<ParamType>(timing: Timing, player: Player, extra: ParamType): void {
-		for (let skill of SkillList) {
-			if (skill.timing !== timing || !skill.onEffect(this, player)) {
-				continue;
-			}
-
-			if (skill.effect(this, player, extra)) {
-				break;
-			}
-		}
-	}
-
-	/**
 	 * Add a quest into the game
 	 * @param quest
 	 */
@@ -167,5 +157,4 @@ export default class Engine {
 			return null;
 		}
 	}
-
 }
