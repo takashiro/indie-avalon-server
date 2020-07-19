@@ -82,9 +82,10 @@ export default class Lobby {
 		const roomId = room.getId();
 		this.rooms.set(roomId, room);
 
-		setTimeout(() => {
+		const timer = setTimeout(() => {
 			this.remove(roomId);
 		}, this.roomExpiry);
+		room.setExpiryTimer(timer);
 
 		return true;
 	}
@@ -95,7 +96,9 @@ export default class Lobby {
 	 * @return Whether the room exists and is successfully deleted
 	 */
 	remove(id: number): boolean {
-		if (this.rooms.has(id)) {
+		const room = this.rooms.get(id);
+		if (room) {
+			room.clearExpiryTimer();
 			this.rooms.delete(id);
 			return true;
 		} else {

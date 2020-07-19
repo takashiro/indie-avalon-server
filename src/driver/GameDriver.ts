@@ -60,6 +60,13 @@ export default class GameDriver extends EventDriver<Event> {
 	}
 
 	/**
+	 * @return Used roles
+	 */
+	getRoles(): Role[] {
+		return this.roles;
+	}
+
+	/**
 	 * Start game
 	 */
 	start(): void {
@@ -67,6 +74,13 @@ export default class GameDriver extends EventDriver<Event> {
 		this.questLeader = 1 + Math.floor(Math.random() * this.playerNum);
 
 		this.arrangeRoles();
+	}
+
+	/**
+	 * @return The seat number of current quest leader.
+	 */
+	getQuestLeader(): number {
+		return this.questLeader;
 	}
 
 	/**

@@ -12,6 +12,8 @@ export default class Room {
 
 	protected ownerKey: string;
 
+	protected expiryTimer?: NodeJS.Timeout;
+
 	constructor() {
 		this.id = 0;
 		this.ownerKey = randstr(32);
@@ -25,6 +27,10 @@ export default class Room {
 		this.id = id;
 	}
 
+	getOwnerKey(): string {
+		return this.ownerKey;
+	}
+
 	/**
 	 * Set up a game driver
 	 * @param driver
@@ -36,7 +42,21 @@ export default class Room {
 	/**
 	 * Get the game engine
 	 */
-	getriver(): Driver | undefined {
+	getDriver(): Driver | undefined {
 		return this.driver;
+	}
+
+	setExpiryTimer(timer: NodeJS.Timeout): void {
+		if (this.expiryTimer) {
+			clearTimeout(this.expiryTimer);
+		}
+		this.expiryTimer = timer;
+	}
+
+	clearExpiryTimer(): void {
+		if (this.expiryTimer) {
+			clearTimeout(this.expiryTimer);
+			delete this.expiryTimer;
+		}
 	}
 }
