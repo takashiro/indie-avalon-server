@@ -1,3 +1,4 @@
+import Player from './Player';
 
 const QUEST_PLAN = [
 	null, null, null, null, null, // [0, 4] Invalid numbers of players
@@ -7,40 +8,76 @@ const QUEST_PLAN = [
 	[3, 4, 4, 5, 5],
 ];
 
+interface QuestData {
+	seq: number;
+	leader: number;
+	members: number[];
+	successNum: number;
+	failureNum: number;
+	successful: boolean;
+}
+
 export default class Quest {
+	protected playerNum: number;
+
 	protected seq: number;
 
-	protected leader: number;
+	protected leader: Player;
 
-	protected members: number[];
+	protected members: Player[];
 
-	protected success: number;
+	protected successNum: number;
 
-	protected fail: number;
+	protected failureNum: number;
 
-	protected completed: number[];
-
+	protected completed: Player[];
 
 	/**
 	 * Create a quest
-	 * @param {number} seq sequence of the quest
-	 * @param {number} leader seat number of the leader
-	 * @param {number[]} members seat number of quest members
+	 * @param playerNum Total number of players
+	 * @param seq sequence of the quest
+	 * @param leader seat number of the leader
+	 * @param members seat number of quest members
 	 */
-	constructor(seq: number, leader: number, members: number[]) {
+	constructor(playerNum: number, seq: number, leader: Player, members: Player[]) {
+		this.playerNum = playerNum;
 		this.seq = seq;
 		this.leader = leader;
 		this.members = members;
-		this.success = 0;
-		this.fail = 0;
+		this.successNum = 0;
+		this.failureNum = 0;
 		this.completed = [];
+	}
+
+	getSeq() {
+		return this.seq;
+	}
+
+	getLeader(): Player {
+		return this.leader;
+	}
+
+	getMembers(): Player[] {
+		return this.members;
+	}
+
+	hasMember(member: Player): boolean {
+		return this.members.includes(member);
+	}
+
+	getSuccessNum(): number {
+		return this.successNum;
+	}
+
+	getFailureNum(): number {
+		return this.failureNum;
 	}
 
 	/**
 	 * @return The number of members who have completed the quest
 	 */
 	get progress(): number {
-		return this.success + this.fail;
+		return this.successNum + this.failureNum;
 	}
 
 	/**
@@ -50,26 +87,30 @@ export default class Quest {
 		return this.members.length;
 	}
 
+	isOngoing(): boolean {
+		return this.progress < this.progressLimit;
+	}
+
 	/**
 	 * Join the quest and choose success or failure
-	 * @param seat
+	 * @param player
 	 * @param success
 	 * @return returns false if the member isn't permitted or has already completed before
 	 */
-	join(seat: number, success: boolean): boolean {
-		if (this.members.indexOf(seat) < 0) {
+	join(player: Player, success: boolean): boolean {
+		if (!this.members.includes(player)) {
 			return false;
 		}
 
-		if (this.completed.indexOf(seat) >= 0) {
+		if (this.completed.includes(player)) {
 			return false;
 		}
 
-		this.completed.push(seat);
+		this.completed.push(player);
 		if (success) {
-			this.success++;
+			this.successNum++;
 		} else {
-			this.fail++;
+			this.failureNum++;
 		}
 
 		return true;
@@ -77,45 +118,50 @@ export default class Quest {
 
 	/**
 	 * Check if the quest is successful
-	 * @param playerNum
 	 */
-	isSuccessful(playerNum: number): boolean {
+	isSuccessful(): boolean {
 		if (this.progress < this.progressLimit) {
 			return false;
 		}
 
-		if (this.isProtected(playerNum)) {
-			return this.fail < 2;
+		if (this.isProtected()) {
+			return this.failureNum < 2;
 		} else {
-			return this.fail < 1;
+			return this.failureNum < 1;
 		}
 	}
 
 	/**
-	 * Check if this is a protected quest
-	 * @param playerNum the number of players
-	 * @return
+	 * @return Check if this is a protected quest
 	 */
-	isProtected(playerNum: number): boolean {
-		if (playerNum < 7) {
+	isProtected(): boolean {
+		if (this.playerNum < 7) {
 			return false;
 		}
-
 		return this.seq == 4;
 	}
 
 	/**
-	 * Get the number of members for a quest
-	 * @param playerNum the number of players
-	 * @param seq the sequence of quest
-	 * @return the number of quest members
+	 * Check whether the quest is valid.
+	 * If the number of members doesn't match, it returns false.
 	 */
-	static getMemberNum(playerNum: number, seq: number): number {
-		let plan = playerNum < QUEST_PLAN.length ? QUEST_PLAN[playerNum] : QUEST_PLAN[QUEST_PLAN.length - 1];
+	isValid(): boolean {
+		const plan = this.playerNum < QUEST_PLAN.length ? QUEST_PLAN[this.playerNum] : QUEST_PLAN[QUEST_PLAN.length - 1];
 		if (plan) {
-			return plan[seq - 1];
+			return plan[this.seq - 1] === this.members.length;
 		} else {
-			return 0;
+			return false;
 		}
+	}
+
+	toJSON(): QuestData {
+		return {
+			seq: this.getSeq(),
+			leader: this.getLeader().getSeat(),
+			members: this.getMembers().map((member) => member.getSeat()),
+			successNum: this.getSuccessNum(),
+			failureNum: this.getFailureNum(),
+			successful: this.isSuccessful(),
+		};
 	}
 }

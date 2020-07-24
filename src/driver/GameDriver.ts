@@ -140,8 +140,7 @@ export default class GameDriver extends EventDriver<Event> {
 
 	/**
 	 * Get a player by seat number
-	 * @param {number} seat
-	 * @return {Player}
+	 * @param seat
 	 */
 	getPlayer(seat: number): Player | undefined {
 		return this.seats.get(seat);
@@ -156,16 +155,29 @@ export default class GameDriver extends EventDriver<Event> {
 
 	/**
 	 * Add a quest into the game
-	 * @param quest
+	 * @param
 	 */
-	addQuest(quest: Quest): void {
-		this.quests.push(quest);
+	addQuest(leader: Player, members: Player[]): Quest | null {
+		const quest = new Quest(this.playerNum, this.quests.length + 1, leader, members);
+		if (quest.isValid()) {
+			this.quests.push(quest);
+			return quest;
+		}
+		return null;
+	}
+
+	getQuests(): Quest[] {
+		return this.quests;
+	}
+
+	getQuest(seq: number): Quest | null {
+		return this.quests[seq];
 	}
 
 	/**
 	 * @return The current quest
 	 */
-	get currentQuest(): Quest | null {
+	getCurrentQuest(): Quest | null {
 		if (this.quests.length > 0) {
 			return this.quests[this.quests.length - 1];
 		} else {
