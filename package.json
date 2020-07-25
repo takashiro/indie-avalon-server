@@ -2,7 +2,7 @@
   "name": "indie-avalon-server",
   "version": "0.1.0",
   "description": "Node.js Server of the Resistence: Avalon (Board Game)",
-  "main": "app.js",
+  "main": "dist",
   "scripts": {
     "build": "tsc",
     "debug": "tsc --incremental",
