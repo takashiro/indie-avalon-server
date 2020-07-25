@@ -27,7 +27,7 @@ router.post('/', (req: Request, res: Response): void => {
 
 	if (req.body.members) {
 		const leaderSeat = parseInt(req.body.seat, 10);
-		if (isNaN(leaderSeat) || leaderSeat <= 0) {
+		if (Number.isNaN(leaderSeat) || leaderSeat <= 0) {
 			res.status(400).send('Invalid leader seat number');
 			return;
 		}
@@ -75,7 +75,7 @@ router.post('/', (req: Request, res: Response): void => {
 	} else if (req.body.questCard !== undefined) {
 		const seat = Number.parseInt(req.body.seat, 10);
 		const { seatKey } = req.body;
-		if (isNaN(seat) || seat <= 0 || !seatKey) {
+		if (Number.isNaN(seat) || seat <= 0 || !seatKey) {
 			res.status(400).send('Seat and seat key is required to complete a quest');
 			return;
 		}

@@ -49,7 +49,7 @@ export default class Quest {
 		this.completed = [];
 	}
 
-	getSeq() {
+	getSeq(): number {
 		return this.seq;
 	}
 
@@ -83,7 +83,7 @@ export default class Quest {
 	/**
 	 * @return The total number of members
 	 */
-	get progressLimit() {
+	get progressLimit(): number {
 		return this.members.length;
 	}
 
@@ -137,7 +137,7 @@ export default class Quest {
 		if (this.playerNum < 7) {
 			return false;
 		}
-		return this.seq == 4;
+		return this.seq === 4;
 	}
 
 	/**

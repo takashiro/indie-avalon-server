@@ -29,7 +29,7 @@ export default class Lobby {
 	}
 
 	setRoomExpiry(expiry: number): void {
-		this.roomExpiry;
+		this.roomExpiry = expiry;
 	}
 
 	getRoomExpiry(): number {

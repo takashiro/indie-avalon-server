@@ -1,9 +1,5 @@
 import supertest from 'supertest';
-import {
-	Role,
-	RoleMap,
-	Team,
-} from '@karuta/avalon-core';
+import { Role } from '@karuta/avalon-core';
 
 import VisionItem from '../src/driver/VisionItem';
 import app from '../src/app';
@@ -26,13 +22,6 @@ const room = {
 	id: 0,
 	ownerKey: '',
 };
-
-let minionNum = 0;
-for (const role of roles) {
-	if (RoleMap.get(role) === Team.Minion && role != Role.Oberon) {
-		minionNum++;
-	}
-}
 
 beforeAll(async () => {
 	const res = await agent.post('/room').send({ roles }).expect(200);

@@ -199,7 +199,7 @@ describe('Room 2', () => {
 		await agent.post(api.quest).send({ members: [1, 2, 3, 4], seat: 1, seatKey: '1' })
 			.expect(200, { seq: 3 });
 		for (let seat = 1; seat <= 4; seat++) {
-			const questCard = seat % 2 == 1;
+			const questCard = seat % 2 === 1;
 			await agent.post(api.quest).send({ questCard, seat, seatKey: String(seat) })
 				.expect(200, { seq: 3, questCard });
 		}

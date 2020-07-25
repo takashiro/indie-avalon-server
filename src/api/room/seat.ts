@@ -11,7 +11,7 @@ const router = Router({ mergeParams: true });
 
 router.post('/:seat', (req: Request, res: Response): void => {
 	const id = parseInt(req.params.id, 10);
-	if (isNaN(id) || id <= 0) {
+	if (Number.isNaN(id) || id <= 0) {
 		res.status(400).send('Invalid room id');
 		return;
 	}

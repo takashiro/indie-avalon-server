@@ -13,7 +13,7 @@ export default abstract class EventListener<EventType, ParamType> {
 		return this.driver;
 	}
 
-	setDriver(driver: EventDriver<EventType> | undefined) {
+	setDriver(driver: EventDriver<EventType> | undefined): void {
 		this.driver = driver;
 	}
 

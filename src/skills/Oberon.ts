@@ -9,7 +9,7 @@ export default class Oberon extends Skill<Vision> {
 		super(Event.AfterTakingSeat, Role.Oberon);
 	}
 
-	isTriggerable(vision: Vision) {
+	isTriggerable(vision: Vision): boolean {
 		const { player } = vision;
 		return player.getTeam() === Team.Minion;
 	}

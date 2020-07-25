@@ -31,6 +31,7 @@ export default class Config {
 			const config = JSON.parse(content);
 			Object.assign(this, config);
 		} catch (error) {
+			// Ignore
 		}
 	}
 }

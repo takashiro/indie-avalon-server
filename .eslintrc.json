@@ -16,6 +16,7 @@
 		"@typescript-eslint"
 	],
 	"rules": {
+		"class-methods-use-this": "off",
 		"import/extensions": [
 			"error",
 			"ignorePackages",
@@ -29,8 +30,10 @@
 			"tab"
 		],
 		"linebreak-style": "off",
+		"max-len": "off",
 		"no-await-in-loop": "off",
 		"no-plusplus": "off",
+		"no-param-reassign": "off",
 		"no-restricted-syntax": [
 			"error",
 			"WithStatement"

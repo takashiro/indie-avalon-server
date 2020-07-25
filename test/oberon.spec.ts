@@ -33,7 +33,7 @@ const room = {
 
 let minionNum = 0;
 for (const role of roles) {
-	if (RoleMap.get(role) === Team.Minion && role != Role.Oberon) {
+	if (RoleMap.get(role) === Team.Minion && role !== Role.Oberon) {
 		minionNum++;
 	}
 }
