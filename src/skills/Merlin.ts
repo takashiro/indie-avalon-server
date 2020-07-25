@@ -8,7 +8,6 @@ import Skill from '../driver/Skill';
 import Vision from '../driver/Vision';
 
 export default class Merlin extends Skill<Vision> {
-
 	constructor() {
 		super(Event.TakingSeat, Role.Merlin);
 	}

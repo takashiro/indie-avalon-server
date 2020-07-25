@@ -12,7 +12,7 @@ it('adds a room', () => {
 });
 
 it('confirms room existance', () => {
-		expect(lobby.get(roomId)).toBe(room);
+	expect(lobby.get(roomId)).toBe(room);
 });
 
 it('confirms room expiry', async () => {

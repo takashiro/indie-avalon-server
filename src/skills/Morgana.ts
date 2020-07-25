@@ -5,7 +5,6 @@ import Skill from '../driver/Skill';
 import Vision from '../driver/Vision';
 
 export default class Morgana extends Skill<Vision> {
-
 	constructor() {
 		super(Event.AfterTakingSeat, Role.Morgana);
 	}
@@ -22,7 +21,7 @@ export default class Morgana extends Skill<Vision> {
 			return false;
 		}
 
-		for (let [seat, player] of driver.getPlayers()) {
+		for (const [seat, player] of driver.getPlayers()) {
 			if (player.getRole() === this.role) {
 				magicians.push({ seat });
 			}

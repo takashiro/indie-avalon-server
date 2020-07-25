@@ -27,7 +27,7 @@ const roles = [
 ];
 
 let minionNum = 0;
-for (let role of roles) {
+for (const role of roles) {
 	if (RoleMap.get(role) === Team.Minion && role !== Role.Oberon) {
 		minionNum++;
 	}
@@ -59,7 +59,7 @@ it('fetches all visions', async () => {
 		const role = res.body.role as Role;
 		if (role === Role.Oberon) {
 			expect(!res.body.others || res.body.others.length <= 0);
-		} else if (RoleMap.get(role)=== Team.Minion) {
+		} else if (RoleMap.get(role) === Team.Minion) {
 			minionVisions.push([seat, ...res.body.others.map((other: VisionItem) => other.seat)]);
 			if (role === Role.Mordred) {
 				mordreds.push(seat);

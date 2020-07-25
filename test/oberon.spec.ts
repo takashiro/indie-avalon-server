@@ -32,7 +32,7 @@ const room = {
 };
 
 let minionNum = 0;
-for (let role of roles) {
+for (const role of roles) {
 	if (RoleMap.get(role) === Team.Minion && role != Role.Oberon) {
 		minionNum++;
 	}
@@ -89,7 +89,7 @@ it('confirms Oberon cannot be seen by other minions', () => {
 
 it('confirms Merlin can see Oberon', () => {
 	for (const oberon of oberons) {
-		for (let minions of merlinVisions) {
+		for (const minions of merlinVisions) {
 			expect(minions.includes(oberon)).toBe(true);
 		}
 	}

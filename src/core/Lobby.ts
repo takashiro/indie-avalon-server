@@ -16,7 +16,7 @@ export default class Lobby {
 
 	constructor(roomExpiry = 12 * 60 * 60 * 1000, roomNumLimit = 1000) {
 		this.roomNumLimit = roomNumLimit;
-		this.rooms = new Map;
+		this.rooms = new Map();
 		this.roomExpiry = roomExpiry;
 	}
 
@@ -101,8 +101,7 @@ export default class Lobby {
 			room.clearExpiryTimer();
 			this.rooms.delete(id);
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 }

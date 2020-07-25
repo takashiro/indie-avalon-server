@@ -5,7 +5,6 @@ import Skill from '../driver/Skill';
 import Vision from '../driver/Vision';
 
 export default class Mordred extends Skill<Vision> {
-
 	constructor() {
 		super(Event.AfterTakingSeat, Role.Mordred);
 	}

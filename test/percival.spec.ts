@@ -28,7 +28,7 @@ const room = {
 };
 
 let minionNum = 0;
-for (let role of roles) {
+for (const role of roles) {
 	if (RoleMap.get(role) === Team.Minion && role != Role.Oberon) {
 		minionNum++;
 	}
@@ -45,7 +45,7 @@ afterAll(async () => {
 });
 
 it('sees Merlin and Morgana', async () => {
-	let magicians: number[] = [];
+	const magicians: number[] = [];
 	let vision: number[] = [];
 	for (let i = 0; i < roles.length; i++) {
 		const seat = i + 1;

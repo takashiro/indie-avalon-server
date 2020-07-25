@@ -11,7 +11,7 @@ it('creates a room', async () => {
 	expect(res.status).toBe(200);
 	const room = res.body;
 	expect(room.roles.length).toBe(roles.length);
-	for (let role of room.roles) {
+	for (const role of room.roles) {
 		expect(roles.includes(role));
 	}
 

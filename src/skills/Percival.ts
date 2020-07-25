@@ -16,7 +16,7 @@ export default class Percival extends Skill<Vision> {
 	process(vision: Vision): boolean {
 		const driver = this.getDriver();
 		const magicians = [];
-		for (let [seat, player] of driver.getPlayers()) {
+		for (const [seat, player] of driver.getPlayers()) {
 			if (player.getRole() === Role.Merlin) {
 				magicians.push(seat);
 				break;

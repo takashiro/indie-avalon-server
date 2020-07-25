@@ -25,8 +25,7 @@ export default abstract class Skill<ParamType> extends EventListener<Event, Para
 		const driver = super.getDriver();
 		if (driver instanceof GameDriver) {
 			return driver;
-		} else {
-			throw new Error('GameDriver is not defined.');
 		}
+		throw new Error('GameDriver is not defined.');
 	}
 }

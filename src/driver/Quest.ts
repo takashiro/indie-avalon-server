@@ -126,9 +126,8 @@ export default class Quest {
 
 		if (this.isProtected()) {
 			return this.failureNum < 2;
-		} else {
-			return this.failureNum < 1;
 		}
+		return this.failureNum < 1;
 	}
 
 	/**
@@ -149,9 +148,8 @@ export default class Quest {
 		const plan = this.playerNum < QUEST_PLAN.length ? QUEST_PLAN[this.playerNum] : QUEST_PLAN[QUEST_PLAN.length - 1];
 		if (plan) {
 			return plan[this.seq - 1] === this.members.length;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	toJSON(): QuestData {

@@ -25,7 +25,7 @@ router.get('/', (req: Request, res: Response): void => {
 	}
 
 	const quests = driver.getQuests();
-	res.json(quests.map(quest => quest.toJSON()));
+	res.json(quests.map((quest) => quest.toJSON()));
 });
 
 export default router;

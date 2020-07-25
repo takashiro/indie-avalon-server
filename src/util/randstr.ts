@@ -1,4 +1,3 @@
-
 const CHARS = '`1234567890-=qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./ ~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?';
 
 /**
@@ -8,7 +7,7 @@ const CHARS = '`1234567890-=qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./ ~!@#$%^&*()_+QW
  * @return A random string
  */
 function randstr(length: number, chars = CHARS): string {
-	let str = [];
+	const str = [];
 	for (let i = 0; i < length; i++) {
 		str.push(chars[Math.floor(Math.random() * chars.length)]);
 	}

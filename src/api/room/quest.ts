@@ -72,10 +72,9 @@ router.post('/', (req: Request, res: Response): void => {
 		}
 
 		res.json({ seq: quest.getSeq() });
-
 	} else if (req.body.questCard !== undefined) {
 		const seat = Number.parseInt(req.body.seat, 10);
-		const seatKey = req.body.seatKey;
+		const { seatKey } = req.body;
 		if (isNaN(seat) || seat <= 0 || !seatKey) {
 			res.status(400).send('Seat and seat key is required to complete a quest');
 			return;
@@ -110,7 +109,7 @@ router.post('/', (req: Request, res: Response): void => {
 			});
 		} else {
 			res.json({
-				seq: quest.getSeq()
+				seq: quest.getSeq(),
 			});
 		}
 	}

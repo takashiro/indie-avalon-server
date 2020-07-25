@@ -4,7 +4,7 @@ import shuffle from '../util/shuffle';
 
 import EventDriver from './EventDriver';
 import Event from './GameEvent';
-import Player  from './Player';
+import Player from './Player';
 import Quest from './Quest';
 import Vision from './Vision';
 import SkillList from '../skills';
@@ -30,7 +30,7 @@ export default class GameDriver extends EventDriver<Event> {
 		super();
 
 		this.roles = [];
-		this.seats = new Map;
+		this.seats = new Map();
 		this.playerNum = 0;
 		this.questLeader = 0;
 		this.quests = [];
@@ -117,7 +117,7 @@ export default class GameDriver extends EventDriver<Event> {
 	 * @return if the seat hasn't been take, return the role.
 	 */
 	takeSeat(seat: number, seatKey: string): Vision | null {
-		let player = this.seats.get(seat);
+		const player = this.seats.get(seat);
 		if (!player) {
 			return null;
 		}
@@ -180,8 +180,7 @@ export default class GameDriver extends EventDriver<Event> {
 	getCurrentQuest(): Quest | null {
 		if (this.quests.length > 0) {
 			return this.quests[this.quests.length - 1];
-		} else {
-			return null;
 		}
+		return null;
 	}
 }

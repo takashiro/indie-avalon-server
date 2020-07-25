@@ -37,7 +37,7 @@ describe('Room 1', () => {
 	});
 
 	test('room id', async () => {
-		await agent.post(`/room/abc/quest`).send({ members: [] })
+		await agent.post('/room/abc/quest').send({ members: [] })
 			.expect(400, 'Invalid room id');
 		await agent.post(`/room/${room.id + 1}/quest`).send({ members: [] })
 			.expect(404, 'The room does not exist');
@@ -46,7 +46,7 @@ describe('Room 1', () => {
 	test('invalid leader seat number', async () => {
 		await agent.post(api.quest).send({ members: [1, 2, 3] })
 			.expect(400, 'Invalid leader seat number');
-		await agent.post(api.quest).send({members: [1, 2, 3], seat: 10})
+		await agent.post(api.quest).send({ members: [1, 2, 3], seat: 10 })
 			.expect(400, 'Leader seat number does not exist');
 	});
 
@@ -100,7 +100,7 @@ describe('Room 1', () => {
 		members: [1, 2],
 		successNum: 2,
 		failureNum: 0,
-		successful: true
+		successful: true,
 	};
 	it('checks quest result', async () => {
 		await agent.get(api.quest).expect(200, quest1);
@@ -119,7 +119,7 @@ describe('Room 1', () => {
 	it('posts Quest 2', async () => {
 		await agent.post(api.quest).send({ questCard: true, seat: 2, seatKey: '2' })
 			.expect(200);
-		await agent.post(api.quest).send({ questCard: false, seat: 3, seatKey: '3'})
+		await agent.post(api.quest).send({ questCard: false, seat: 3, seatKey: '3' })
 			.expect(200);
 		await agent.post(api.quest).send({ questCard: true, seat: 4, seatKey: '4' })
 			.expect(200);
@@ -131,7 +131,7 @@ describe('Room 1', () => {
 		members: [2, 3, 4],
 		successNum: 2,
 		failureNum: 1,
-		successful: false
+		successful: false,
 	};
 	it('checks Quest 2', async () => {
 		await agent.get(api.quest).expect(200, quest2);
@@ -168,7 +168,7 @@ describe('Room 2', () => {
 		api.quests = `/room/${room.id}/quests`;
 
 		for (let seat = 1; seat <= roles.length; seat++) {
-			await agent.post(`/room/${room.id}/seat/${seat}`).send({ id: room.id, seat: seat, seatKey: String(seat) });
+			await agent.post(`/room/${room.id}/seat/${seat}`).send({ id: room.id, seat, seatKey: String(seat) });
 		}
 	});
 
@@ -191,7 +191,7 @@ describe('Room 2', () => {
 			.expect(200, { seq: 2 });
 		for (let seat = 1; seat <= 4; seat++) {
 			await agent.post(api.quest).send({ questCard: true, seat, seatKey: String(seat) })
-			.expect(200, { seq: 2, questCard: true });
+				.expect(200, { seq: 2, questCard: true });
 		}
 	});
 
@@ -222,7 +222,7 @@ describe('Room 2', () => {
 			members: [1, 2, 3, 4, 5],
 			successNum: 4,
 			failureNum: 1,
-			successful: true
+			successful: true,
 		};
 		await agent.get(api.quest)
 			.expect(200, quest);

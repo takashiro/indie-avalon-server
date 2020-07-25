@@ -44,7 +44,7 @@ router.post('/', (req: Request, res: Response): void => {
 		return;
 	}
 
-	const room = new Room;
+	const room = new Room();
 	if (!lobby.add(room)) {
 		res.status(500).send('Too many rooms');
 		return;
