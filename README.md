@@ -1,4 +1,4 @@
-The Resistence: Avalon
+The Resistence: Avalon [![Node CI](https://github.com/takashiro/indie-avalon-server/actions/workflows/nodejs.yml/badge.svg)](https://github.com/takashiro/indie-avalon-server/actions/workflows/nodejs.yml)
 ==========
 
 | Example Page |    https://avalon.takashiro.cn        |
@@ -31,4 +31,4 @@ WeChat App: https://github.com/takashiro/indie-avalon-wechat
 Running Environment
 -------------------
 1. Nginx
-2. Node v8.x or later versions
+2. Node 12.x or later versions
