@@ -1,4 +1,4 @@
-The Resistence: Avalon [![Node CI](https://github.com/takashiro/indie-avalon-server/actions/workflows/nodejs.yml/badge.svg)](https://github.com/takashiro/indie-avalon-server/actions/workflows/nodejs.yml)
+The Resistence: Avalon [![Node.js CI](https://github.com/takashiro/indie-avalon-server/actions/workflows/nodejs.yml/badge.svg)](https://github.com/takashiro/indie-avalon-server/actions/workflows/nodejs.yml)
 ==========
 
 | Example Page |    https://avalon.takashiro.cn        |
@@ -6,7 +6,7 @@ The Resistence: Avalon [![Node CI](https://github.com/takashiro/indie-avalon-ser
 | Author       |           Kazuichi Takashiro          |
 
 
-Lisense
+License
 -------
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
@@ -26,9 +26,9 @@ Introduction
 
 It's a small online app to arrange role cards of the resistence: Avalon.
 
-WeChat App: https://github.com/takashiro/indie-avalon-wechat
+Web (React): https://github.com/takashiro/indie-avalon-react
 
 Running Environment
 -------------------
 1. Nginx
-2. Node 12.x or later versions
+2. Node 16.x or later versions

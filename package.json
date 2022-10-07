@@ -1,5 +1,5 @@
 {
-  "name": "indie-avalon-server",
+  "name": "@karuta/avalon-server",
   "version": "0.1.0",
   "description": "Node.js Server of the Resistence: Avalon (Board Game)",
   "main": "dist",
