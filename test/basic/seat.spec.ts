@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 
-import app from '../src/app';
-import randstr from '../src/util/randstr';
+import app from '../../src/app';
+import randstr from '../../src/util/randstr';
 
 const agent = supertest.agent(app);
 
@@ -35,7 +35,7 @@ test('invalid seat key', async () => {
 });
 
 test('fetching roles', async () => {
-	const takenSeats = [];
+	const takenSeats: number[] = [];
 	for (let i = 0; i < roles.length; i++) {
 		const seatKey = randstr(32);
 		const seat = i + 1;

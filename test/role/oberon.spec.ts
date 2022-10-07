@@ -5,26 +5,31 @@ import {
 	Team,
 } from '@karuta/avalon-core';
 
-import VisionItem from '../src/driver/VisionItem';
-import app from '../src/app';
+import VisionItem from '../../src/driver/VisionItem';
+import app from '../../src/app';
 
 const agent = supertest(app);
 
 const roles = [
 	Role.Servant,
 	Role.Servant,
-	Role.Servant,
-	Role.Merlin,
 	Role.Merlin,
 	Role.Percival,
 
 	Role.Morgana,
 	Role.Assassin,
+	Role.Morgana,
+	Role.Assassin,
+	Role.Minion,
 	Role.Minion,
 	Role.Oberon,
-	Role.Mordred,
-	Role.Mordred,
+	Role.Oberon,
 ];
+
+const room = {
+	id: 0,
+	ownerKey: '',
+};
 
 let minionNum = 0;
 for (const role of roles) {
@@ -32,11 +37,6 @@ for (const role of roles) {
 		minionNum++;
 	}
 }
-
-const room = {
-	id: 0,
-	ownerKey: '',
-};
 
 beforeAll(async () => {
 	const res = await agent.post('/room').send({ roles }).expect(200);
@@ -48,44 +48,49 @@ afterAll(async () => {
 		.expect(200, { id: room.id });
 });
 
+const visions: number[][] = [];
+const oberons: number[] = [];
 const merlinVisions: number[][] = [];
-const minionVisions: number[][] = [];
-const mordreds: number[] = [];
-
 it('fetches all visions', async () => {
 	for (let i = 0; i < roles.length; i++) {
 		const seat = i + 1;
 		const res = await agent.post(`/room/${room.id}/seat/${seat}`).send({ seatKey: String(seat) }).expect(200);
 		const role = res.body.role as Role;
 		if (role === Role.Oberon) {
+			// Confirms Oberon cannot see other minions
 			expect(!res.body.others || res.body.others.length <= 0);
+			oberons.push(seat);
 		} else if (RoleMap.get(role) === Team.Minion) {
-			minionVisions.push([seat, ...res.body.others.map((other: VisionItem) => other.seat)]);
-			if (role === Role.Mordred) {
-				mordreds.push(seat);
-			}
+			visions.push([seat, ...res.body.others.map((other: VisionItem) => other.seat)]);
 		} else if (role === Role.Merlin) {
 			merlinVisions.push(res.body.others.map((other: VisionItem) => other.seat));
 		}
 	}
 });
 
-it('confirms all minion visions are the same', async () => {
-	expect(minionVisions[0].length).toBeGreaterThan(0);
-	expect(minionVisions[0].length).toBe(minionNum);
+it('confirms all minion visions are the same', () => {
+	expect(visions[0].length).toBeGreaterThan(0);
+	expect(visions[0].length).toBe(minionNum);
 
-	for (const vision of minionVisions) {
+	for (const vision of visions) {
 		vision.sort();
 	}
-	for (let i = 1; i < minionVisions.length; i++) {
-		expect(minionVisions[i]).toStrictEqual(minionVisions[0]);
+	for (let i = 0; i < visions.length; i++) {
+		expect(visions[i]).toHaveLength(minionNum);
+		expect(visions[i]).toStrictEqual(visions[0]);
 	}
 });
 
-it('confirms Merlin cannot see Mordred', async () => {
-	for (const mordred of mordreds) {
+it('confirms Oberon cannot be seen by other minions', () => {
+	for (const oberon of oberons) {
+		expect(visions[0].includes(oberon)).toBe(false);
+	}
+});
+
+it('confirms Merlin can see Oberon', () => {
+	for (const oberon of oberons) {
 		for (const minions of merlinVisions) {
-			expect(minions.includes(mordred)).toBe(false);
+			expect(minions.includes(oberon)).toBe(true);
 		}
 	}
 });
