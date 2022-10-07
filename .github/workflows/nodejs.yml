@@ -1,4 +1,4 @@
-name: Node CI
+name: Node.js CI
 
 on:
   push:
@@ -18,12 +18,20 @@ jobs:
           - 16.x
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
+    -
+      name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
+    -
+      name: npm install, build, and test
       run: |
         npm ci
         npm run build
         npm test
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    -
+      name: Build image
+      run: docker build .

@@ -1,0 +1,6 @@
+{
+	"socket": {
+		"port": 8080
+	},
+	"roomNumLimit": 1000
+}
