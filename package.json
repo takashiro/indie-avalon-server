@@ -5,7 +5,7 @@
   "main": "dist",
   "scripts": {
     "build": "tsc",
-    "debug": "tsc --incremental",
+    "debug": "tsc --incremental --sourceMap",
     "clean": "rimraf dist",
     "test": "npm run lint && npm run jest",
     "lint": "eslint --ext=ts,js .",
@@ -27,6 +27,9 @@
     "url": "https://github.com/takashiro/indie-avalon-server/issues"
   },
   "homepage": "https://github.com/takashiro/indie-avalon-server#readme",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@karuta/avalon-core": "^0.1.0",
     "express": "^4.18.1"

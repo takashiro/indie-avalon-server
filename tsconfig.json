@@ -8,8 +8,7 @@
 		"lib": [
 			"ES2019"
 		],
-		"strict": true,
-		"sourceMap": true
+		"strict": true
 	},
 	"include": [
 		"src"
