@@ -31,4 +31,4 @@ Web (React): https://github.com/takashiro/indie-avalon-react
 Running Environment
 -------------------
 1. Nginx
-2. Node 16.x or later versions
+2. Node 18.x or later versions
