@@ -1,4 +1,4 @@
-import Player from './Player';
+import Player from './Player.js';
 
 const QUEST_PLAN = [
 	null, null, null, null, null, // [0, 4] Invalid numbers of players

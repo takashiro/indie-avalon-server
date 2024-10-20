@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import status from './status';
-import room from './room';
+import status from './status.js';
+import room from './room/index.js';
 
 const routerMap = new Map<string, Router>();
 routerMap.set('status', status);

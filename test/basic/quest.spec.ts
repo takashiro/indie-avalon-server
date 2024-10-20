@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 
-import app from '../../src/app';
+import app from '../../src/app.js';
 
 const agent = supertest.agent(app);
 

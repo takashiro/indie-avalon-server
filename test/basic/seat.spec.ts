@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 
-import app from '../../src/app';
-import randstr from '../../src/util/randstr';
+import app from '../../src/app.js';
+import randstr from '../../src/util/randstr.js';
 
 const agent = supertest.agent(app);
 

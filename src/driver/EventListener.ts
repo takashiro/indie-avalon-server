@@ -1,4 +1,4 @@
-import EventDriver from './EventDriver';
+import EventDriver from './EventDriver.js';
 
 export default abstract class EventListener<EventType, ParamType> {
 	readonly event: EventType;

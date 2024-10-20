@@ -5,15 +5,15 @@ import {
 } from 'express';
 import { Role } from '@karuta/avalon-core';
 
-import { lobby } from '../../core';
-import Room from '../../core/Room';
-import GameDriver from '../../driver/GameDriver';
+import { lobby } from '../../core/index.js';
+import Room from '../../core/Room.js';
+import GameDriver from '../../driver/GameDriver.js';
 
-import { getRoom } from './utils';
+import { getRoom } from './utils.js';
 
-import seatRouter from './seat';
-import questRouter from './quest';
-import questsRouter from './quests';
+import seatRouter from './seat.js';
+import questRouter from './quest.js';
+import questsRouter from './quests.js';
 
 const router = Router();
 

@@ -1,6 +1,6 @@
-import randstr from '../util/randstr';
+import randstr from '../util/randstr.js';
 
-import Driver from './Driver';
+import Driver from './Driver.js';
 
 /**
  * Game Room

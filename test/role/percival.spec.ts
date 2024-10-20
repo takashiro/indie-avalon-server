@@ -1,8 +1,8 @@
 import supertest from 'supertest';
 import { Role } from '@karuta/avalon-core';
 
-import VisionItem from '../../src/driver/VisionItem';
-import app from '../../src/app';
+import VisionItem from '../../src/driver/VisionItem.js';
+import app from '../../src/app.js';
 
 const agent = supertest(app);
 

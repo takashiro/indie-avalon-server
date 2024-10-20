@@ -1,8 +1,8 @@
 import { Role } from '@karuta/avalon-core';
 
-import Vision from '../driver/Vision';
-import GameEvent from '../driver/GameEvent';
-import Skill from '../driver/Skill';
+import Vision from '../driver/Vision.js';
+import GameEvent from '../driver/GameEvent.js';
+import Skill from '../driver/Skill.js';
 
 export default class Percival extends Skill<Vision> {
 	constructor() {

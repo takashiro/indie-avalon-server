@@ -3,9 +3,9 @@ import {
 	Team,
 } from '@karuta/avalon-core';
 
-import Event from '../driver/GameEvent';
-import Skill from '../driver/Skill';
-import Vision from '../driver/Vision';
+import Event from '../driver/GameEvent.js';
+import Skill from '../driver/Skill.js';
+import Vision from '../driver/Vision.js';
 
 export default class Minion extends Skill<Vision> {
 	constructor() {

@@ -1,8 +1,8 @@
 import { Role } from '@karuta/avalon-core';
 
-import Event from './GameEvent';
-import EventListener from './EventListener';
-import GameDriver from './GameDriver';
+import Event from './GameEvent.js';
+import EventListener from './EventListener.js';
+import GameDriver from './GameDriver.js';
 
 export default abstract class Skill<ParamType> extends EventListener<Event, ParamType> {
 	protected role: Role;

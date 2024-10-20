@@ -2,14 +2,15 @@
   "name": "@karuta/avalon-server",
   "version": "0.1.2",
   "description": "Node.js Server of the Resistence: Avalon (Board Game)",
+  "type": "module",
   "main": "dist",
   "scripts": {
-    "build": "tsc",
-    "debug": "tsc --incremental --sourceMap",
+    "build": "tsc -p src",
+    "debug": "tsc -p src --incremental --sourceMap",
     "clean": "rimraf dist",
     "test": "npm run lint && npm run jest",
     "lint": "eslint --ext=ts,js .",
-    "jest": "jest"
+    "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,7 @@
     "dist"
   ],
   "dependencies": {
-    "@karuta/avalon-core": "^0.1.0",
+    "@karuta/avalon-core": "^0.2.0",
     "express": "^4.18.2"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",

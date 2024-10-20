@@ -1,5 +1,5 @@
-import Lobby from './Lobby';
-import Config from './Config';
+import Lobby from './Lobby.js';
+import Config from './Config.js';
 
 export const config = new Config();
 export const lobby = new Lobby();

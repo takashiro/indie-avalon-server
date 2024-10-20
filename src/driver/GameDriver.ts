@@ -1,13 +1,13 @@
 import { Role } from '@karuta/avalon-core';
 
-import shuffle from '../util/shuffle';
+import shuffle from '../util/shuffle.js';
 
-import EventDriver from './EventDriver';
-import Event from './GameEvent';
-import Player from './Player';
-import Quest from './Quest';
-import Vision from './Vision';
-import SkillList from '../skills';
+import EventDriver from './EventDriver.js';
+import Event from './GameEvent.js';
+import Player from './Player.js';
+import Quest from './Quest.js';
+import Vision from './Vision.js';
+import SkillList from '../skills/index.js';
 
 /**
  * Game Driver

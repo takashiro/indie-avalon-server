@@ -1,11 +1,11 @@
-import Skill from '../driver/Skill';
+import Skill from '../driver/Skill.js';
 
-import Merlin from './Merlin';
-import Minion from './Minion';
-import Mordred from './Mordred';
-import Morgana from './Morgana';
-import Oberon from './Oberon';
-import Percival from './Percival';
+import Merlin from './Merlin.js';
+import Minion from './Minion.js';
+import Mordred from './Mordred.js';
+import Morgana from './Morgana.js';
+import Oberon from './Oberon.js';
+import Percival from './Percival.js';
 
 type SkillConstructor = new() => Skill<unknown>;
 

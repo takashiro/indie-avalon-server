@@ -1,8 +1,8 @@
 import {
 	lobby,
 	config,
-} from './core';
-import app from './app';
+} from './core/index.js';
+import app from './app.js';
 
 (async function main(): Promise<void> {
 	await config.read();

@@ -4,8 +4,8 @@ import {
 	Response,
 } from 'express';
 
-import { lobby } from '../../core';
-import GameDriver from '../../driver/GameDriver';
+import { lobby } from '../../core/index.js';
+import GameDriver from '../../driver/GameDriver.js';
 
 const router = Router({ mergeParams: true });
 

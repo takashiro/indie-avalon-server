@@ -4,9 +4,9 @@ import {
 	Response,
 } from 'express';
 
-import GameDriver from '../../driver/GameDriver';
+import GameDriver from '../../driver/GameDriver.js';
 
-import { getRoom } from './utils';
+import { getRoom } from './utils.js';
 
 const router = Router({
 	mergeParams: true,

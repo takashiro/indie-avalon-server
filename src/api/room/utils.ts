@@ -3,8 +3,8 @@ import {
 	Response,
 } from 'express';
 
-import { lobby } from '../../core';
-import Room from '../../core/Room';
+import { lobby } from '../../core/index.js';
+import Room from '../../core/Room.js';
 
 /* eslint-disable import/prefer-default-export */
 export function getRoom(req: Request, res: Response): Room | null {

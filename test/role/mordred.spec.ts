@@ -1,12 +1,12 @@
 import supertest from 'supertest';
 import {
 	Role,
-	RoleMap,
+	roleMap,
 	Team,
 } from '@karuta/avalon-core';
 
-import VisionItem from '../../src/driver/VisionItem';
-import app from '../../src/app';
+import VisionItem from '../../src/driver/VisionItem.js';
+import app from '../../src/app.js';
 
 const agent = supertest(app);
 
@@ -28,7 +28,7 @@ const roles = [
 
 let minionNum = 0;
 for (const role of roles) {
-	if (RoleMap.get(role) === Team.Minion && role !== Role.Oberon) {
+	if (roleMap.get(role) === Team.Minion && role !== Role.Oberon) {
 		minionNum++;
 	}
 }
@@ -59,7 +59,7 @@ it('fetches all visions', async () => {
 		const role = res.body.role as Role;
 		if (role === Role.Oberon) {
 			expect(!res.body.others || res.body.others.length <= 0);
-		} else if (RoleMap.get(role) === Team.Minion) {
+		} else if (roleMap.get(role) === Team.Minion) {
 			minionVisions.push([seat, ...res.body.others.map((other: VisionItem) => other.seat)]);
 			if (role === Role.Mordred) {
 				mordreds.push(seat);

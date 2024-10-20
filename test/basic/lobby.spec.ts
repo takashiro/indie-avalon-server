@@ -1,5 +1,5 @@
-import Lobby from '../../src/core/Lobby';
-import Room from '../../src/core/Room';
+import Lobby from '../../src/core/Lobby.js';
+import Room from '../../src/core/Room.js';
 
 const lobby = new Lobby(100);
 const room = new Room();

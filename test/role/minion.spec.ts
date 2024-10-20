@@ -1,12 +1,12 @@
 import supertest from 'supertest';
 import {
 	Role,
-	RoleMap,
+	roleMap,
 	Team,
 } from '@karuta/avalon-core';
 
-import VisionItem from '../../src/driver/VisionItem';
-import app from '../../src/app';
+import VisionItem from '../../src/driver/VisionItem.js';
+import app from '../../src/app.js';
 
 const agent = supertest(app);
 
@@ -43,7 +43,7 @@ test('Minion vision', async () => {
 		const seat = i + 1;
 		const res = await agent.post(`/room/${room.id}/seat/${seat}`).send({ seatKey: String(seat) }).expect(200);
 		const role = res.body.role as Role;
-		const team = RoleMap.get(role);
+		const team = roleMap.get(role);
 		if (team === Team.Minion) {
 			visions.push([seat, ...res.body.others.map((other: VisionItem) => other.seat)]);
 		}

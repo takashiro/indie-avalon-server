@@ -1,6 +1,6 @@
 import { LobbyStatus } from '@karuta/avalon-core';
 
-import Room from './Room';
+import Room from './Room.js';
 
 let nextRoomId = 0;
 
