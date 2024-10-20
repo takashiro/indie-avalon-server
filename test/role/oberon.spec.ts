@@ -75,9 +75,9 @@ it('confirms all minion visions are the same', () => {
 	for (const vision of visions) {
 		vision.sort();
 	}
-	for (let i = 0; i < visions.length; i++) {
-		expect(visions[i]).toHaveLength(minionNum);
-		expect(visions[i]).toStrictEqual(visions[0]);
+	for (const vision of visions) {
+		expect(vision).toHaveLength(minionNum);
+		expect(vision).toStrictEqual(visions[0]);
 	}
 });
 

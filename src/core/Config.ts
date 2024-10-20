@@ -1,11 +1,17 @@
 import fs from 'fs';
-import util from 'util';
-
-const readFile = util.promisify(fs.readFile);
+import fsp from 'fs/promises';
 
 interface Socket {
 	host: string;
 	port: number;
+}
+
+interface AppConfig {
+	socket: string | number | Socket;
+
+	roomNumLimit: number;
+
+	roomExpiry: number;
 }
 
 export default class Config {
@@ -27,10 +33,10 @@ export default class Config {
 		}
 
 		try {
-			const content = await readFile(configFile, 'utf-8');
-			const config = JSON.parse(content);
+			const content = await fsp.readFile(configFile, 'utf-8');
+			const config = JSON.parse(content) as AppConfig;
 			Object.assign(this, config);
-		} catch (error) {
+		} catch (ignore) {
 			// Ignore
 		}
 	}

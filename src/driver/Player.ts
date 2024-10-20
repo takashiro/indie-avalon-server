@@ -21,7 +21,7 @@ export default class Player {
 	constructor(seat: number, role: Role) {
 		this.seat = seat;
 		this.role = role;
-		this.team = roleMap.get(role) || Team.Unknown;
+		this.team = roleMap.get(role) ?? Team.Unknown;
 	}
 
 	getRole(): Role {
@@ -30,7 +30,7 @@ export default class Player {
 
 	setRole(role: Role): void {
 		this.role = role;
-		this.team = roleMap.get(role) || Team.Unknown;
+		this.team = roleMap.get(role) ?? Team.Unknown;
 	}
 
 	getTeam(): Team {

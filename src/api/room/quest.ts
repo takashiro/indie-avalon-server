@@ -60,7 +60,7 @@ router.post('/', (req: Request, res: Response): void => {
 		}
 
 		const curQuest = driver.getCurrentQuest();
-		if (curQuest && curQuest.isOngoing()) {
+		if (curQuest?.isOngoing()) {
 			res.status(400).send('A quest is still on going');
 			return;
 		}

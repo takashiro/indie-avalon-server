@@ -6,7 +6,6 @@ import {
 import { lobby } from '../../core/index.js';
 import Room from '../../core/Room.js';
 
-/* eslint-disable import/prefer-default-export */
 export function getRoom(req: Request, res: Response): Room | null {
 	const id = parseInt(req.params.id, 10);
 	if (Number.isNaN(id) || id <= 0) {
